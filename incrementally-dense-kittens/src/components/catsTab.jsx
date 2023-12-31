@@ -56,7 +56,10 @@ function CatsTab(props){
                <div id="cat-display">
                   <h1>{selectedCat().name}</h1>
 
+                  <img src={selectedCat().image}></img>
+
                   <div id="cat-stats">
+                    <h2>Type: {selectedCat().type}</h2>
                     <h2>Density: {selectedCat().density}</h2>
                     <h2>Likes: {selectedCat().likes}</h2>
                   </div>

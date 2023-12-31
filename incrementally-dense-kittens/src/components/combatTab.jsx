@@ -5,7 +5,7 @@ function CombatTab(){
 
     return (
         <div>
-                <h3> Combat</h3>
+            <h4>Cat fight</h4>
 
         </div>
     )

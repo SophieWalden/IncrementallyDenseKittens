@@ -18,6 +18,8 @@ function TabManager(){
         "nextCatId": 0,
         "equippedCats": [],
         "maxEquippedCats": 3,
+        "coins": 0,
+        "eggHatchingIndex": 0,
     });
 
     return (
@@ -31,7 +33,7 @@ function TabManager(){
 
                 </div>
                 <div id="resource-display">
-                    <h3 style={{color: "#c4be66"}}>Coins: 0</h3>
+                    <h3 style={{color: "#c4be66"}}>Coins: {state.coins}</h3>
                     <h3 style={{color: "lightblue"}}>Equipped: {state.equippedCats.length}/{state.maxEquippedCats}</h3>
                 </div>
                </div>

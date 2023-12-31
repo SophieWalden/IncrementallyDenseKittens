@@ -37,7 +37,6 @@ const coolCatNames = [
       'Cheshire',
       'Pixel Paws',
       'Boba Feline',
-      'Meow Zedong',
       'Sir Purrsalot',
       'Napoleon Cataparte',
       'Catalina Wine Mixer',
@@ -51,15 +50,12 @@ const coolCatNames = [
       'Purrlock Holmes',
     ];
 
-const catIcons = [
-    "https://www.pixelcatsend.com/images/catmojis/hi.png",
-    "https://www.pixelcatsend.com/images/catmojis/pridecat.png",
-    "https://www.pixelcatsend.com/images/catmojis/feels.png",
-    "https://www.pixelcatsend.com/images/catmojis/thonk.png",
-    "https://www.pixelcatsend.com/images/catmojis/writing.png",
-    "https://i.postimg.cc/ry0S4SV6/Jill-headshot-by-5119.png",
-
-]
+const catIcons = {
+    "Airy Breezetail": "https://www.pixelcatsend.com/images/catmojis/decision.png",
+    "Pebble Pouncer": "https://www.pixelcatsend.com/images/catmojis/prideflag.png",
+    "Mossy Whiskerblade": "https://www.pixelcatsend.com/images/catmojis/laughing.png",
+    "Sandy Pawshifter": "https://www.pixelcatsend.com/images/catmojis/scribe.png"
+}
 
 const catLikes = [
     "Pickles", 
@@ -73,11 +69,11 @@ const catLikes = [
 
 function HatchingTab(props){
 
-    function addCat(){
-        let newCat = {"Type": "Fire", "density": Math.floor(Math.random() * 1000), "id": props.state["nextCatId"]};
+    function addCat(catType){
+        let newCat = {"type": catType, "density": Math.floor(Math.random() * 1000), "id": props.state["nextCatId"]};
 
         newCat["name"] = coolCatNames[Math.floor(Math.random() * coolCatNames.length)]
-        newCat["image"] = catIcons[Math.floor(Math.random() * catIcons.length)]
+        newCat["image"] = catIcons[catType]
         newCat["likes"] = catLikes[Math.floor(Math.random() * catLikes.length)]
 
         // Whenever you add a cat, increase the id value
@@ -88,10 +84,111 @@ function HatchingTab(props){
     
       }
 
+    function buyEgg(egg){
+
+        if (props.state.coins >= egg.Cost){
+            props.setState((oldState) => ({
+                ...oldState, "coins": oldState.coins - egg.Cost  
+            }))
+
+            let roll = Math.random() * 100;
+            console.log(egg.outcomes, roll)
+            for (let total = 0, i = 0; i < egg.outcomes.length; i++){
+                total += egg.outcomes[i][0];
+                
+                if (roll <= total){
+                    console.log(egg.outcomes[i][1])
+                    addCat(egg.outcomes[i][1]);
+                    break
+                }
+            }
+            
+        }
+    }
+
+    function wrapAroundValues(value, length){
+        if (value < 0) return length - 1;
+        if (value >= length) return 0;
+        return value
+    }
+
+    function rotateEggs(amount){
+        props.setState((oldState) => ({...oldState, "eggHatchingIndex": wrapAroundValues(oldState.eggHatchingIndex + amount, eggs.length)}));
+    }
+
+    const eggs = [
+        {"name": "Basic Egg4", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr2d57188742faws3.png"},
+        {"name": "Basic Egg2", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr282cfb803d8aws3.png"},
+        {"name": "Basic Egg", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr22850d3a01daws3.png"},
+        {"name": "Basic Egg3", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr27019243780aws3.png"},
+        {"name": "Dense Egg", "Cost": 0, "outcomes": [[5, "Airy Breezetail"], [10, "Pebble Pouncer"], [40, "Mossy Whiskerblade"], [45, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr27fc9e77fc7aws3.png"}
+    ]
+
     return (
-        <div>
-                <h3>Hatching Tab</h3>
-                <button onClick={addCat}>Add Cat</button>
+        <div id="hatching-tab">
+                
+            <div id="eggs-display">
+                <div className="egg-container-left">
+                    <h1>{eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].name}</h1>
+                    <img id="egg-container-display-image" src={eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].image}></img>
+
+
+                    <div className="egg-outcome-showoff">
+                        {eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].outcomes.map((cat, index) => (
+                            <div className="egg-outcome-showoff-container" key={index}>
+                                <img src={catIcons[cat[1]]}></img>
+                                <h6>{cat[0]}%</h6>
+                            </div>
+                        ))}
+                    </div>
+
+                    <h3>Cost: {eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].Cost}</h3>
+                    <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)])}>Buy</h2>
+                </div>
+
+                <div className="egg-container">
+                    <h1>{eggs[props.state.eggHatchingIndex].name}</h1>
+                    <img src={eggs[props.state.eggHatchingIndex].image}></img>
+
+
+                    <div className="egg-outcome-showoff">
+                        {eggs[props.state.eggHatchingIndex].outcomes.map((cat, index) => (
+                            <div className="egg-outcome-showoff-container" key={index}>
+                                <img src={catIcons[cat[1]]}></img>
+                                <h6>{cat[0]}%</h6>
+                            </div>
+                        ))}
+                    </div>
+
+                    <h3>Cost: {eggs[props.state.eggHatchingIndex].Cost}</h3>
+                    <h2 onClick={() => buyEgg(eggs[props.state.eggHatchingIndex])}>Buy</h2>
+                </div>
+
+                <div className="egg-container-right">
+                    <h1>{eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].name}</h1>
+                    <img className="egg-container-display-image"src={eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].image}></img>
+
+
+                    <div className="egg-outcome-showoff">
+                        {eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].outcomes.map((cat, index) => (
+                            <div className="egg-outcome-showoff-container" key={index}>
+                                <img src={catIcons[cat[1]]}></img>
+                                <h6>{cat[0]}%</h6>
+                            </div>
+                        ))}
+                    </div>
+
+                    <h3>Cost: {eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].Cost}</h3>
+                    <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)])}>Buy</h2>
+                </div>
+            </div>
+            <div id="egg-display-rotator-buttons">
+                <h3 onClick={() => rotateEggs(-1)}>←</h3>
+
+                {props.state.eggHatchingIndex}
+                <h3 onClick={() => rotateEggs(1)}>→</h3>
+            </div>
+             
         </div>
     )
 }
