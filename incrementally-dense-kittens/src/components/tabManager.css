@@ -1,0 +1,33 @@
+
+
+.tab-selector-buttons{
+    width: 20vw;
+    height: 5vh;
+    font-size: 1.5vw;
+    
+    border: solid black 1px;
+    background: tan;
+    border-radius: 5px;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#tab-button-holder{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 100vw;
+    height: 10vh;
+
+    background: rgb(151, 97, 46);
+}
+
+#site-content{
+    width: 100vw;
+    height: 88vh;
+}
