@@ -6,7 +6,7 @@
     font-size: 1.5vw;
     
     border: solid black 1px;
-    background: tan;
+    background: #6b7cb1;
     border-radius: 5px;
 
 
@@ -22,12 +22,35 @@
     align-items: center;
 
     width: 100vw;
-    height: 10vh;
 
-    background: rgb(151, 97, 46);
+    flex: 500000px;
+}
+
+#site-header{
+    padding-top: 2vh;
+    width: 100vw;
+    height: 10.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-evenly;
+
+    background: #333358;
+    border-bottom: solid black 2px;
+
+}
+
+#resource-display{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 100px;
+    color: grey;
+
+    font-size: 0.8vw;
 }
 
 #site-content{
     width: 100vw;
-    height: 88vh;
+    height: 85vh;
 }
