@@ -1,0 +1,15 @@
+
+
+#hydraulicPressButton{
+    width: 60vw;
+    height: 30vh;
+
+    font-size: 5vw;
+    border-radius: 25px;
+    background: rgb(131, 87, 87);
+    border: solid black 3px;
+}
+
+#hydraulicPressButton:hover{
+    background: rgb(126, 81, 81);
+}

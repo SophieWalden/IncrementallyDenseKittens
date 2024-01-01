@@ -69,7 +69,8 @@ function CatsTab(props){
                     {!props.state.equippedCats.includes(selectedCat().id) ? 
                     <h3 onClick={() => equipCat(selectedCat())} id="equip-cat">Equip</h3> : 
                     <h3 onClick={() => props.setState((oldState) => ({
-                      ...oldState, equippedCats: oldState.equippedCats.splice(oldState.equippedCats.indexOf(selectedCat().id), 1)
+                      ...oldState, equippedCats:  oldState.equippedCats.filter((cat) => cat !== selectedCat().id),
+                      "selectedCat": oldState.equippedCats.filter((cat) => cat !== selectedCat().id).length > 0 ? oldState.equippedCats.filter((cat) => cat !== selectedCat().id)[0] : -1,
                     }))} id="unequip-cat">Unequip</h3> }
 
                   </div>

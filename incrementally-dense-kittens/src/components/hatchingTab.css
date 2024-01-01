@@ -190,3 +190,58 @@
     width: 10vw !important;
     height: 10vw !important;
 }
+
+
+@keyframes sparkle {
+0% {
+    transform: scale(1);
+    opacity: 0.5;
+    }
+    50% {
+    transform:  scale(25);
+    opacity: 0.4;
+    background-color: orange; /* Change color as needed */
+    }
+    75% {
+    transform: scale(15);
+    opacity: 0;
+    background-color: red; /* Change color as needed */
+    }
+    100%{
+    transform: scale(10);
+    opacity: 0;
+    }
+}
+
+.burst .sparkle {
+width: 8px;
+height: 8px;
+background-color: red; /* Sparkle color (change as needed) */
+position: absolute;
+border-radius: 50%;
+animation: sparkle 2s ease-out forwards;
+
+}
+
+.sparkle-container{
+position: absolute;
+top: 40vh;
+}
+
+@keyframes image-appear{
+    0%{ 
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+}
+
+.sparkle-container img{
+    position: absolute;
+    top: -3vw;
+    left: -2vw;
+    width: 5vw;
+    height: 5vw;
+    animation: image-appear 2s ease-out forwards;
+}

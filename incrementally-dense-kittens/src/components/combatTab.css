@@ -22,7 +22,7 @@
     width: 25vw;
     height: 80vh;
     
-    background: rgb(141, 126, 74);
+    background: #997e5a;;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -34,7 +34,7 @@
     width: 25vw;
     height: 80vh;
 
-    background: rgb(141, 126, 74);
+    background: #997e5a;;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -85,6 +85,10 @@
     height: 38vh;
   
     background: rgb(86, 63, 63);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
 }
 
 #enemy-display-container{
@@ -183,4 +187,54 @@
 
 .move-enemy-attack-animation{
     animation: moveBottomLeft 1.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+#world-selector-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#world-selector-buttons h3{
+    background: #ccd5ae;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 5px;
+    border: solid black 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#world-selector-buttons h4{
+    background: #e9edc9;
+    width: 5vw;
+    height: 8vh;
+    border-radius: 5px;
+    border: solid black 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#world-selector{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+#world-selector h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #fefae0;
+    width: 5vw;
+    height: 5vw;
+
+    font-size: 1vw;
+    border: solid black 1px;
+    border-radius: 5px;
 }

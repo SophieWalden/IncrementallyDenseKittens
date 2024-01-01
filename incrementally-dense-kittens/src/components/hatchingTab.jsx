@@ -87,6 +87,8 @@ function HatchingTab(props){
     function buyEgg(egg){
 
         if (props.state.coins >= egg.Cost){
+            let bought_type = null;
+
             props.setState((oldState) => ({
                 ...oldState, "coins": oldState.coins - egg.Cost  
             }))
@@ -98,11 +100,38 @@ function HatchingTab(props){
                 
                 if (roll <= total){
                     addCat(egg.outcomes[i][1]);
+                    bought_type = egg.outcomes[i][1];
                     break
                 }
             }
-            
+            throwSparkles(bought_type)
         }
+    }
+
+    function throwSparkles(type) {
+        const sparkleContainer = document.querySelector('.sparkle-container');
+        
+
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkleContainer.appendChild(sparkle);
+
+    
+        const image_display = document.createElement("img");
+        image_display.src = catIcons[type];
+        sparkleContainer.appendChild(image_display);
+      
+
+        // Trigger reflow to restart the animation
+        const reflow = sparkleContainer.offsetWidth;
+    
+        // Apply animation class to start the burst effect
+        sparkleContainer.classList.add('burst');
+
+        setTimeout(() => {
+            sparkle.remove();
+            image_display.remove();
+          }, 800); 
     }
 
     function wrapAroundValues(value, length){
@@ -147,8 +176,12 @@ function HatchingTab(props){
 
                 <div className="egg-container">
                     <h1>{eggs[props.state.eggHatchingIndex].name}</h1>
-                    <img src={eggs[props.state.eggHatchingIndex].image}></img>
 
+                    <img src={eggs[props.state.eggHatchingIndex].image}></img>
+                    <div className="sparkle-container">
+                        
+                    </div>
+                    
 
                     <div className="egg-outcome-showoff">
                         {eggs[props.state.eggHatchingIndex].outcomes.map((cat, index) => (

@@ -5,6 +5,9 @@ import CatsTab from "./catsTab";
 import HatchingTab from "./hatchingTab";
 import PressureTab from "./pressureTab";
 import CombatTab from "./combatTab";
+import OptionsTab from "./optionsTab";
+import PressTab from "./pressTab";
+
 import Decimal from "break_infinity.js";
 
 import {formatValues} from "./globalFunctions";
@@ -32,13 +35,17 @@ function TabManager(){
         "playerLostHealth": new Decimal(0),
         "playerMaxHealth": new Decimal(0),
         "enemyMaxHealth": new Decimal(0),
-        "enemyLostHealth": new Decimal(999999999999999),
+        "enemyLostHealth": new Decimal(0),
         "playerSpeed": new Decimal(2),
         "enemySpeed": new Decimal(1),
         "playerDamage": new Decimal(0),
         "enemyDamage": new Decimal(0),
         "playerLastAttackDate": new Date(),
         "enemyLastAttackDate": new Date(),
+        "currentWorld": 0,
+        "worldsUnlocked": [0],
+        "killsPerWorld": [0],
+        "enemyPowerLevel": 1,
     });
 
     function calculateStats(){
@@ -56,7 +63,7 @@ function TabManager(){
         setState((oldState) => ({
             ...oldState, "playerMaxHealth": totalDensity.times(5),
             "playerDamage": totalDensity,
-            "playerSpeed": new Decimal(1)
+            "playerSpeed": new Decimal(2)
         }))
     }
 
@@ -71,7 +78,9 @@ function TabManager(){
                         <div className="tab-selector-buttons" onClick={() => setTab("cats")}>Cats</div>
                         <div className="tab-selector-buttons" onClick={() => setTab("eggs")}>Eggs</div>
                         <div className="tab-selector-buttons" onClick={() => setTab("combat")}>Combat</div>
-                        <div className="tab-selector-buttons" onClick={() => setTab("pressure")}>Pressure Points</div>
+                        <div className="tab-selector-buttons" onClick={() => setTab("pressure")}>Pressure Perks</div>
+                        <div className="tab-selector-buttons" onClick={() => setTab("press")}>Hydraulic Press</div>
+                        <div className="tab-selector-buttons" onClick={() => setTab("options")}>Options</div>
 
                 </div>
                 <div id="resource-display">
@@ -81,11 +90,12 @@ function TabManager(){
                </div>
 
               <div id="site-content">
-                
-                    {tab == "cats" ? <CatsTab state={state} setState={setState}></CatsTab> : 
-                     tab == "eggs" ? <HatchingTab state={state} setState={setState}></HatchingTab> :
-                     tab == "combat" ? <CombatTab state={state} setState={setState}></CombatTab> : 
-                     <PressureTab state={state} setState={setState}></PressureTab>}
+                    <div className={tab !== "cats" ? "hiddenTab" : undefined}><CatsTab state={state} setState={setState}></CatsTab> </div>
+                    <div className={tab !== "eggs" ? "hiddenTab" : undefined}><HatchingTab  state={state} setState={setState}></HatchingTab></div>
+                    <div className={tab !== "combat" ? "hiddenTab" : undefined}><CombatTab state={state} setState={setState}></CombatTab> </div>
+                    <div className={tab !== "options" ? "hiddenTab" : undefined}><OptionsTab   state={state} setState={setState}></OptionsTab></div>
+                    <div className={tab !== "press" ? "hiddenTab" : undefined}><PressTab  state={state} setState={setState}></PressTab> </div>
+                    <div className={tab !== "pressure" ? "hiddenTab" : undefined}><PressureTab state={state} setState={setState}></PressureTab></div>
 
                     
               </div>
