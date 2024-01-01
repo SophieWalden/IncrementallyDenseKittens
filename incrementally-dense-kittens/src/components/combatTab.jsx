@@ -1,5 +1,5 @@
 import "./combatTab.css"
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import {formatValues} from "./globalFunctions";
 import Decimal from "break_infinity.js";
 
@@ -8,8 +8,10 @@ import {getCat} from "./globalFunctions.jsx"
 const enemyImages = {"dog": 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/blogs/7042/images/rqjcClzPTb6hUVFietnp_Getting_Started_With_Basic_Dog_Training_Commands.jpg'}
 
 function CombatTab(props){
+    const playerFigtherImageRef = useRef(null);
+    const enemyFigtherImageRef = useRef(null);
 
-    function simulateCombatTick(){
+    function SimulateCombatTick(){
 
         // Enemy Dead
         if (props.state.enemyLostHealth.greaterThanOrEqualTo(props.state.enemyMaxHealth)){
@@ -39,25 +41,44 @@ function CombatTab(props){
         if (new Decimal(timeSinceLastAttack).greaterThanOrEqualTo(props.state.playerSpeed.times(1000))){
             props.setState((oldState) => ({...oldState, "playerLastAttackDate": Date.now(),
                                                         "enemyLostHealth": oldState.enemyLostHealth.plus(props.state.playerDamage)}))
+
+        
+            // Fight Animation
+            const element = playerFigtherImageRef.current;
+            element.classList.add('move-player-attack-animation');
+
+            setTimeout(() => {
+                element.classList.remove('move-player-attack-animation');
+            }, 500);
         }
         
         let enemyTimeSinceLastAttack = new Date() - props.state.enemyLastAttackDate;
         if (new Decimal(enemyTimeSinceLastAttack).greaterThanOrEqualTo(props.state.enemySpeed.times(1000))){
             props.setState((oldState) => ({...oldState, "enemyLastAttackDate": Date.now(), 
                                                         "playerLostHealth": oldState.playerLostHealth.plus(props.state.enemyDamage)}))
+
+                                                        
+
+            // Fight Animation
+            const element = enemyFigtherImageRef.current;
+            element.classList.add('move-enemy-attack-animation');
+
+            setTimeout(() => {
+                element.classList.remove('move-enemy-attack-animation');
+            }, 500);
         }
 
 
     }
 
       useEffect(() => {
-        const intervalId = setInterval(simulateCombatTick, 16.67); // 60 times a second (1000 ms / 60)
+        const intervalId = setInterval(SimulateCombatTick, 16.67); // 60 times a second (1000 ms / 60)
         
         // Clear the timeout when the component is unmounted
         return () => {
           clearInterval(intervalId);
         };
-      }, [props.state.equippedCats.length, props.state.enemyLostHealth, props.state.playerLostHealth, Date.now()]);
+      }, [props.state.equippedCats.length, props.state.enemyLostHealth, props.state.playerLostHealth]);
 
 
       const [timeSinceLastAttack, setTimeSinceLastAttack] = useState(0);      
@@ -117,8 +138,10 @@ function CombatTab(props){
 
             <div id="enemy-display-container">
                 <div id="enemy-display">
-                    {props.state.equippedCats.length != 0 && <img src={getCat(props.state.cats, props.state.equippedCats[0]).image}></img>}
-                    <img src={enemyImages[props.state.currentEnemy]}></img>
+
+                    <div id="fight-display-right"><img src={enemyImages[props.state.currentEnemy]} ref={enemyFigtherImageRef}></img></div>
+                    <div id="fight-display-left">{props.state.equippedCats.length != 0 && <img src={getCat(props.state.cats, props.state.equippedCats[0]).image} ref={playerFigtherImageRef}></img>}</div>
+                    
 
 
                 </div>

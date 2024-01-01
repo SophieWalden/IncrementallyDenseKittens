@@ -49,7 +49,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+
+    background-image: url('https://cdn.wallpapersafari.com/30/6/a4mrs3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat
 }
+
+#fight-display-left{
+   display: flex;
+   justify-content: left;
+   width: 45vw;
+
+}
+
+#fight-display-right{
+    width: 45vw;
+    display: flex;
+    justify-content: right;
+}
+
+#fight-display-right img,
+#fight-display-left img{
+    width: 15vw;
+    height: 15vh;
+    margin: 1vw;
+    transition: transform 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+
 
 #enemy-selecter{
     width: 45vw;
@@ -69,11 +98,6 @@
     width: 40vw;
     height: 20vh;
     background: rgb(74, 79, 109);
-}
-
-#enemy-display img{
-    width: 40vw;
-    height: 30vh;
 }
 
 
@@ -137,4 +161,26 @@
     align-items: center;
 
     border-radius: 5px;
+}
+
+@keyframes moveTopRight {
+    to {
+      transform: translate(25px, -25px); 
+    }
+  }
+
+
+.move-player-attack-animation{
+    animation: moveTopRight 1.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes moveBottomLeft {
+    to {
+      transform: translate(-25px, 25px); 
+    }
+  }
+
+
+.move-enemy-attack-animation{
+    animation: moveBottomLeft 1.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
