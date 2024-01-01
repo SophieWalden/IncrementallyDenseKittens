@@ -1,6 +1,6 @@
 
 import Decimal from "break_infinity.js";
-function formatValues(value, decimalMode){
+export const formatValues = (value, decimalMode) =>{
     value = new Decimal(value);
 
     if (new Decimal(1000).greaterThan(value)){
@@ -22,4 +22,12 @@ function formatValues(value, decimalMode){
     return value.toExponential(2).toString().replace("+","");
   }
 
-export default formatValues;
+
+
+export const getCat = (cats, id) => {
+  for (let i = 0; i < cats.length; i++){
+    if (cats[i].id == id) return cats[i];
+  }
+  return null;
+}
+

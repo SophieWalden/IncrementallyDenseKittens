@@ -70,7 +70,7 @@ const catLikes = [
 function HatchingTab(props){
 
     function addCat(catType){
-        let newCat = {"type": catType, "density": Math.floor(Math.random() * 1000), "id": props.state["nextCatId"]};
+        let newCat = {"type": catType, "density": Math.floor(Math.random() * 5), "id": props.state["nextCatId"]};
 
         newCat["name"] = coolCatNames[Math.floor(Math.random() * coolCatNames.length)]
         newCat["image"] = catIcons[catType]
@@ -92,12 +92,11 @@ function HatchingTab(props){
             }))
 
             let roll = Math.random() * 100;
-            console.log(egg.outcomes, roll)
+          
             for (let total = 0, i = 0; i < egg.outcomes.length; i++){
                 total += egg.outcomes[i][0];
                 
                 if (roll <= total){
-                    console.log(egg.outcomes[i][1])
                     addCat(egg.outcomes[i][1]);
                     break
                 }
