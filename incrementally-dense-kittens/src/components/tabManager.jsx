@@ -18,7 +18,7 @@ function TabManager(){
     const [state, setState] = useState({
 
         // Resources
-        "coins": 0,
+        "coins": new Decimal(10),
 
         // Inventory Tab
         "cats": [],
@@ -46,6 +46,7 @@ function TabManager(){
         "worldsUnlocked": [0],
         "killsPerWorld": [0],
         "enemyPowerLevel": 1,
+        "firstEnemy": true,
     });
 
     function calculateStats(){
@@ -84,7 +85,7 @@ function TabManager(){
 
                 </div>
                 <div id="resource-display">
-                    <h3 style={{color: "#c4be66"}}>Coins: {state.coins}</h3>
+                    <h3 style={{color: "#c4be66"}}>Coins: {formatValues(state.coins)}</h3>
                     <h3 style={{color: "lightblue"}}>Equipped: {state.equippedCats.length}/{state.maxEquippedCats}</h3>
                 </div>
                </div>

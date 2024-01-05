@@ -61,7 +61,7 @@ function CombatTab(props){
 
         props.setState((oldState) => ({
             ...oldState,
-            "coins": oldState.coins + reward
+            "coins": oldState.coins.plus(reward)
         }))
     }
 

@@ -3,7 +3,7 @@ import Decimal from "break_infinity.js";
 export const formatValues = (value, decimalMode) =>{
     value = new Decimal(value);
 
-    if (new Decimal(1000).greaterThan(value)){
+    if (new Decimal(100000).greaterThan(value)){
       // Return small decimal number
       
       value = value.times(100).floor().divideBy(100).toString()

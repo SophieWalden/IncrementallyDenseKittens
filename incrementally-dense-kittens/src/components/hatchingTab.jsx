@@ -1,6 +1,7 @@
 import "./hatchingTab.css"
 import {useState} from "react";
-
+import Decimal from "break_infinity.js";
+import {formatValues} from "./globalFunctions";
 
 const coolCatNames = [
       'Whiskerino',
@@ -51,10 +52,21 @@ const coolCatNames = [
     ];
 
 const catIcons = {
-    "Airy Breezetail": "https://www.pixelcatsend.com/images/catmojis/decision.png",
-    "Pebble Pouncer": "https://www.pixelcatsend.com/images/catmojis/prideflag.png",
-    "Mossy Whiskerblade": "https://www.pixelcatsend.com/images/catmojis/laughing.png",
-    "Sandy Pawshifter": "https://www.pixelcatsend.com/images/catmojis/scribe.png"
+    "Knitting Cat": "https://i.imgur.com/w0krgMm.png",
+    "Cat Toy Cat": "https://i.imgur.com/dg5jmS7.png",
+    "Squirrel Cat": "https://i.imgur.com/757oJ80.png",
+    "Void Cat": "https://i.imgur.com/E92OkRe.png",
+    "Princess Cat": "https://i.imgur.com/N69iDEF.png",
+    "Classy Cat": "https://i.imgur.com/xgjQb3H.png"
+}
+
+const cats = {
+    "Knitting Cat": {"image": catIcons["Knitting Cat"], "base_density": 5},
+    "Cat Toy Cat": {"image": catIcons["Cat Toy Cat"], "base_density": 25},
+    "Squirrel Cat": {"image": catIcons["Squirrel Cat"], "base_density": 8},
+    "Void Cat": {"image": catIcons["Void Cat"], "base_density": 18},
+    "Princess Cat": {"image": catIcons["Princess Cat"], "base_density": 13},
+    "Classy Cat": {"image": catIcons["Classy Cat"], "base_density": 10},
 }
 
 const catLikes = [
@@ -70,7 +82,10 @@ const catLikes = [
 function HatchingTab(props){
 
     function addCat(catType){
-        let newCat = {"type": catType, "density": Math.floor(Math.random() * 5), "id": props.state["nextCatId"]};
+        let density = cats[catType].base_density;
+        density = Math.floor(density * 0.75 + Math.random() * 0.5 * density) // Add a little randomness to the values
+
+        let newCat = {"type": catType, "density": density, "id": props.state["nextCatId"]};
 
         newCat["name"] = coolCatNames[Math.floor(Math.random() * coolCatNames.length)]
         newCat["image"] = catIcons[catType]
@@ -81,16 +96,17 @@ function HatchingTab(props){
     
         props.setState((oldState) => ({...oldState, 
                 "cats": [...oldState.cats, newCat]}));
+
     
       }
 
     function buyEgg(egg){
-
-        if (props.state.coins >= egg.Cost){
+      
+        if (props.state.coins.greaterThanOrEqualTo(egg.Cost)){
             let bought_type = null;
 
             props.setState((oldState) => ({
-                ...oldState, "coins": oldState.coins - egg.Cost  
+                ...oldState, "coins": oldState.coins.minus(egg.Cost)
             }))
 
             let roll = Math.random() * 100;
@@ -144,13 +160,11 @@ function HatchingTab(props){
         props.setState((oldState) => ({...oldState, "eggHatchingIndex": wrapAroundValues(oldState.eggHatchingIndex + amount, eggs.length)}));
     }
 
+
     const eggs = [
-        {"name": "Basic Egg4", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr2d57188742faws3.png"},
-        {"name": "Basic Egg2", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr282cfb803d8aws3.png"},
-        {"name": "Basic Egg", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr22850d3a01daws3.png"},
-        {"name": "Basic Egg3", "Cost": 0, "outcomes": [[45, "Airy Breezetail"], [30, "Pebble Pouncer"], [20, "Mossy Whiskerblade"], [5, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr27019243780aws3.png"},
-        {"name": "Dense Egg", "Cost": 0, "outcomes": [[5, "Airy Breezetail"], [10, "Pebble Pouncer"], [40, "Mossy Whiskerblade"], [45, "Sandy Pawshifter"]], "image": "https://art.pixilart.com/sr27fc9e77fc7aws3.png"}
-    ]
+        {"name": "Basic Egg", "Cost": new Decimal(5), "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
+        {"name": "High Spending Egg", "Cost": new Decimal(100), "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
+       ]
 
     return (
         <div id="hatching-tab">
@@ -170,7 +184,7 @@ function HatchingTab(props){
                         ))}
                     </div>
 
-                    <h3>Cost: {eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].Cost}</h3>
+                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].Cost)}</h3>
                     <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)])}>Buy</h2>
                 </div>
 
@@ -192,7 +206,7 @@ function HatchingTab(props){
                         ))}
                     </div>
 
-                    <h3>Cost: {eggs[props.state.eggHatchingIndex].Cost}</h3>
+                    <h3>Cost: {formatValues(eggs[props.state.eggHatchingIndex].Cost)}</h3>
                     <h2 onClick={() => buyEgg(eggs[props.state.eggHatchingIndex])}>Buy</h2>
                 </div>
 
@@ -210,7 +224,7 @@ function HatchingTab(props){
                         ))}
                     </div>
 
-                    <h3>Cost: {eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].Cost}</h3>
+                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].Cost)}</h3>
                     <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)])}>Buy</h2>
                 </div>
             </div>
