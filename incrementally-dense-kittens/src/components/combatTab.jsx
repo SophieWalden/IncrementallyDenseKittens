@@ -5,18 +5,75 @@ import Decimal from "break_infinity.js";
 
 import {getCat} from "./globalFunctions.jsx"
 
-const enemyImages = {"dog": 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/blogs/7042/images/rqjcClzPTb6hUVFietnp_Getting_Started_With_Basic_Dog_Training_Commands.jpg',
-                    "raccoon": "https://c8.alamy.com/comp/2BXGB2X/vector-pixel-art-raccoon-isolated-2BXGB2X.jpg",
-                    "fox": "https://media.npr.org/assets/img/2014/01/02/140102123909_1_wide-da99ab742e0a327bf840d4b8e01b864b019482ca-s1400-c100.jpg"}
+const enemyImages = {"dog": 'https://opengameart.org/sites/default/files/styles/thumbnail/public/howl.png',
+                    "raccoon": "https://opengameart.org/sites/default/files/styles/thumbnail/public/raccoon-run.gif",
+                    "fox": "https://opengameart.org/sites/default/files/styles/thumbnail/public/tom-400.jpg",
+                    "goblin": "https://opengameart.org/sites/default/files/styles/thumbnail/public/lpc_goblin_preview.png",
+                    "wiggly mage": "https://opengameart.org/sites/default/files/styles/thumbnail/public/threeformsPrev.png",
+                    "powerful wiggly mage": "https://opengameart.org/sites/default/files/styles/thumbnail/public/archon.gif",
+                    "mummy": "https://opengameart.org/sites/default/files/styles/thumbnail/public/mons6.png",
+                    "bat": "https://opengameart.org/sites/default/files/styles/thumbnail/public/new_piskel_9.png",
+                    "golem": "https://opengameart.org/sites/default/files/styles/thumbnail/public/golem-preview.png",
+                    "slime": "https://opengameart.org/sites/default/files/styles/thumbnail/public/Monster_rot_0.png",
+                    "flame swordsman": "https://opengameart.org/sites/default/files/styles/thumbnail/public/flamelings_sprites_preview.png",
+                    "lobster": "https://opengameart.org/sites/default/files/styles/thumbnail/public/HELMETFISH.gif",
+                    "pumpkin": "https://opengameart.org/sites/default/files/styles/thumbnail/public/jack.png",
+                    "minotaur": "https://opengameart.org/sites/default/files/styles/thumbnail/public/minotaurus_spritesheet_preview.png",
+                    "what is this?": "https://opengameart.org/sites/default/files/styles/thumbnail/public/troll_1.png",
+                    "knife guy": "https://opengameart.org/sites/default/files/styles/thumbnail/public/MrKnifeGuy_0B.gif",
+                    "lizard man": "https://opengameart.org/sites/default/files/styles/thumbnail/public/reptile_128x128x9.png",
+                    "octopus": "https://opengameart.org/sites/default/files/styles/thumbnail/public/preview_694.png",
+                    "tubazord": "https://opengameart.org/sites/default/files/styles/thumbnail/public/ttm_move_by_cookiez.gif",
+                    "dodo": "https://opengameart.org/sites/default/files/styles/thumbnail/public/preview_859.png",
+                    "beaver": "https://opengameart.org/sites/default/files/styles/thumbnail/public/preview_802.png",
+                    "bee": "https://opengameart.org/sites/default/files/styles/thumbnail/public/bee_4.png",
+                    "cupcake": "https://opengameart.org/sites/default/files/styles/thumbnail/public/muffin_jump.png",
+                    "toast": "https://opengameart.org/sites/default/files/styles/thumbnail/public/Toast.png",
 
+                    }
+
+      
+               
+    
+
+          
 const enemies = {
     "dog": {"image": enemyImages["dog"], "speed": 3, "damage": 2, "health": 8, "reward": 2},
     "fox": {"image": enemyImages["fox"], "speed": 1.5, "damage": 1, "health": 4, "reward": 2},
-    "raccoon": {"image": enemyImages["raccoon"], "speed": 2.6, "damage": 3, "health": 4, "reward": 2},
+    "raccoon": {"image": enemyImages["raccoon"], "speed": 2.6, "damage": 3, "health": 4, "reward": 2}, 
+    "bee": {"image": enemyImages["bee"], "speed": 3, "damage": 4, "health": 16, "reward": 4},
+    "beaver": {"image": enemyImages["beaver"], "speed": 1.5, "damage": 2, "health": 8, "reward": 4},
+    "dodo": {"image": enemyImages["lobster"], "speed": 2.6, "damage": 6, "health": 8, "reward": 4}, 
+    "octopus": {"image": enemyImages["octopus"], "speed": 3, "damage": 8, "health": 32, "reward": 8}, 
+    "slime": {"image": enemyImages["slime"], "speed": 1.5, "damage": 4, "health": 16, "reward": 8}, 
+    "bat": {"image": enemyImages["bat"], "speed": 2.6, "damage": 12, "health": 16, "reward": 8}, 
+    "goblin": {"image": enemyImages["goblin"], "speed": 3, "damage": 16, "health": 64, "reward": 16}, 
+    "lizard man": {"image": enemyImages["lizard man"], "speed": 1.5, "damage": 8, "health": 32, "reward": 16}, 
+    "knife guy": {"image": enemyImages["knife guy"], "speed": 2.6, "damage": 24, "health": 32, "reward": 16}, 
+    "cupcake": {"image": enemyImages["cupcake"], "speed": 3, "damage": 32, "health": 128, "reward": 32}, 
+    "toast": {"image": enemyImages["toast"], "speed": 1.5, "damage": 16, "health": 64, "reward": 32}, 
+    "pumpkin": {"image": enemyImages["pumpkin"], "speed": 2.6, "damage": 48, "health": 64, "reward": 32}, 
+    "minotaur": {"image": enemyImages["minotaur"], "speed": 3, "damage": 64, "health": 256, "reward": 64}, 
+    "golem": {"image": enemyImages["golem"], "speed": 1.5, "damage": 32, "health": 128, "reward": 64}, 
+    "lobster": {"image": enemyImages["lobster"], "speed": 2.6, "damage": 96, "health": 128, "reward": 64}, 
+    "mummy": {"image": enemyImages["mummy"], "speed": 3, "damage": 128, "health": 512, "reward": 128}, 
+    "wiggly mage": {"image": enemyImages["golem"], "speed": 1.5, "damage": 64, "health": 256, "reward": 128}, 
+    "powerful wiggly mage": {"image": enemyImages["lobster"], "speed": 2.6, "damage": 192, "health": 256, "reward": 128}, 
+    "flame swordsman": {"image": enemyImages["flame swordsman"], "speed": 3, "damage": 256, "health": 1024, "reward": 256}, 
+    "what is this?": {"image": enemyImages["what is this?"], "speed": 1.5, "damage": 128, "health": 512, "reward": 256}, 
+    "tubazord": {"image": enemyImages["tubazord"], "speed": 2.6, "damage": 384, "health": 512, "reward": 256}, 
+
 }
 
 const worlds = {
-    0: {"types": ["dog", "raccoon", "fox"], "powerLevel": 4}
+    "infinite": {"types": Object.keys(enemies), powerLevel: 8},
+    0: {"types": ["dog", "raccoon", "fox"], "powerLevel": 4},
+    5: {"types": ["bee", "beaver", "dodo"], "powerLevel": 4},
+    10: {"types": ["octopus", "slime", "bat"], "powerLevel": 4},
+    15: {"types": ["goblin", "lizard man", "knife guy"], "powerLevel": 4},
+    20: {'types': ['pumpkin', 'toast', 'cupcake'], 'powerLevel': 4},
+    25: {'types': ['minotaur', 'golem', 'lobster'], 'powerLevel': 4},
+    30: {'types': ['flame swordsman', 'what is this?', 'tubazord'], 'powerLevel': 4},
 }
 
 function CombatTab(props){
@@ -24,14 +81,26 @@ function CombatTab(props){
     const enemyFigtherImageRef = useRef(null);
 
     function generateEnemy(){
-        let level_modifier = 1.5;
+        let level_modifier = 1.15 ** (props.state.currentWorld);
         let world = props.state.currentWorld;
-        if (!Object.keys(worlds).includes(world)){
-            world = Object.keys(worlds)[Object.keys(worlds).length - 1];
-            level_modifier = level_modifier ** (props.state.currentWorld - world)
+        let maxWorldMade = Object.keys(worlds).filter((world) => world != "infinite").reduce(function(a, b){ return parseInt(a) > parseInt(b) ? a : b }); // Max World defined before infinite
+        maxWorldMade = parseInt(maxWorldMade);
+
+        if (props.state.currentWorld < maxWorldMade + 5){
+
+            // Find maximum world world unlocked
+            let chosenWorld = 0;
+            for (const entry in worlds){
+                if (entry != "infinite" && props.state.currentWorld >= entry){
+                    chosenWorld = Math.max(chosenWorld, entry)
+                }
+            }
+
+            world = chosenWorld;
         }else{
-            level_modifier = 1;
+            world = "infinite";
         }
+
 
         let possibleEnemies = worlds[world]["types"];
 
@@ -113,7 +182,8 @@ function CombatTab(props){
 
                 setTimeout(() => {
                     element.classList.remove('move-player-attack-animation');
-                }, 500);
+                    element.style.transform = 'translate(0, 0)';
+                }, props.state.playerSpeed.times(980));
             }
         }
         
@@ -131,7 +201,8 @@ function CombatTab(props){
 
                 setTimeout(() => {
                     element.classList.remove('move-enemy-attack-animation');
-                }, 500);
+                    element.style.transform = 'translate(0, 0)';
+                }, props.state.enemySpeed.times(980));
             }
         }
 
@@ -225,7 +296,7 @@ function CombatTab(props){
                 <div id="enemy-selecter">
                     <div id="world-selector">
                         {[0, 1, 2, 3, 4].map((world_index) => {
-                            return <h5 key={world_index} onClick={() => rotateWorlds(-1 * (props.state.currentWorld - world_index))}>
+                            return <h5 key={world_index} onClick={() => rotateWorlds(-1 * ((props.state.currentWorld % 5) - world_index))}>
                                 {props.state.worldsUnlocked.includes(world_index + Math.floor(props.state.currentWorld / 5) * 5) ? world_index + Math.floor(props.state.currentWorld / 5) * 5 : "?"}
                             </h5> 
                         })}

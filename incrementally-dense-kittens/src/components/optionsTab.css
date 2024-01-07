@@ -1,0 +1,20 @@
+
+#save-button,
+#load-button{
+    width: 20vw;
+    height: 5vh;
+
+    background: lightblue;
+    border-radius: 5px;
+    border: solid black 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#save-container{
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+}

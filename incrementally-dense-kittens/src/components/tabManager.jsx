@@ -18,7 +18,9 @@ function TabManager(){
     const [state, setState] = useState({
 
         // Resources
-        "coins": new Decimal(10),
+        "coins": new Decimal(100000),
+        "pressurizedCoins": new Decimal(0),
+
 
         // Inventory Tab
         "cats": [],
@@ -43,10 +45,25 @@ function TabManager(){
         "playerLastAttackDate": new Date(),
         "enemyLastAttackDate": new Date(),
         "currentWorld": 0,
-        "worldsUnlocked": [0],
+        "worldsUnlocked": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
         "killsPerWorld": [0],
         "enemyPowerLevel": 1,
         "firstEnemy": true,
+
+        // Pressure Tab
+        "catsSeen": [],
+        "perkPoints": 0,
+        "upgrades": {1: {"name": "Cat Legion Unleashed", "description": "[Rebuyable] Equip More Cats!", "unlocked": 0, "cost": 2, id:1},
+        2:{"name": "Feline Frenzy", "description": "Scale Attack Speed with amount of equipped cats. 10% per cat", "unlocked": 0, "cost": 10, id:2},
+        3:{"name": "Hydraulic Press!", "description": "Too many cats? Unlock the Hydraulic press and new eggs based on compacting cats together", "cost": 5, "unlocked": 0, id:3},
+        4:{"name": "Multi Egg Elegance", "description": "[Rebuyable] Open more eggs at once", "cost": 3, "unlocked": 0, id:4},
+        5:{"name": "Density Drive", "description": "Unlock powerful combat effects after hitting density milestones per cat (Crit, Poison, etc)", "cost": 15, "unlocked": 0, id:5},
+        6:{"name": "Unstoppable Pressure", "description": "Keep your 3 highest density cats when using the Hydraulic Press", "cost": 20, "unlocked": 0, id:6},
+        7:{"name": "Auto Egg Bot", "description": "[Rebuyable] Opens your active egg every x seconds", "cost": 10, "unlocked": 0, id:7},
+        8:{"name": "Overkill Overdrive", "description": "Excess damage in combat carries over to the next enemy", "cost": 40, "unlocked": 0, id:8},
+        9:{"name": "Stellar Accumulate", "description": "Unlock Stellar Cats", "cost": 100, "unlocked": 0, id:9},
+            },
+        
     });
 
     function calculateStats(){
@@ -86,6 +103,7 @@ function TabManager(){
                 </div>
                 <div id="resource-display">
                     <h3 style={{color: "#c4be66"}}>Coins: {formatValues(state.coins)}</h3>
+                    <h3 style={{color: "darkseagreen"}}>Pressurized Coins: {formatValues(state.pressurizedCoins)}</h3>
                     <h3 style={{color: "lightblue"}}>Equipped: {state.equippedCats.length}/{state.maxEquippedCats}</h3>
                 </div>
                </div>

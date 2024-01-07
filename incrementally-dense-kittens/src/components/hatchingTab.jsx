@@ -57,7 +57,15 @@ const catIcons = {
     "Squirrel Cat": "https://i.imgur.com/757oJ80.png",
     "Void Cat": "https://i.imgur.com/E92OkRe.png",
     "Princess Cat": "https://i.imgur.com/N69iDEF.png",
-    "Classy Cat": "https://i.imgur.com/xgjQb3H.png"
+    "Classy Cat": "https://i.imgur.com/xgjQb3H.png",
+    "Hefty Cat": "https://i.imgur.com/1u0lr1c.png",
+    "Chonky Cat": "https://i.imgur.com/6RMwBrT.png",
+     "Megachonker": "https://i.imgur.com/S9K37e3.png",
+    "Garf Cat": "https://i.imgur.com/T796CTa.png",
+    "Superhero Cat": "https://i.imgur.com/qEbVKHV.png",
+    "Lawyer Cat": "https://i.imgur.com/Pb6INth.png",
+    "Cute Cat": "https://i.imgur.com/8CrUpVy.png",
+    "Jim": "https://i.imgur.com/1KTu8g4.png",
 }
 
 const cats = {
@@ -67,6 +75,14 @@ const cats = {
     "Void Cat": {"image": catIcons["Void Cat"], "base_density": 18},
     "Princess Cat": {"image": catIcons["Princess Cat"], "base_density": 13},
     "Classy Cat": {"image": catIcons["Classy Cat"], "base_density": 10},
+    "Hefty Cat": {"image": catIcons["Hefty Cat"], "base_density": 20},
+    "Chonky Cat": {"image": catIcons["Chonky Cat"], "base_density": 25},
+    "Megachonker": {"image": catIcons["Megachonker"], "base_density": 35},
+    "Garf Cat": {"image": catIcons["Garf Cat"], "base_density": 50},
+    "Cute Cat": {"image": catIcons["Cute Cat"], "base_density": 35},
+    "Superhero Cat": {"image": catIcons["Superhero Cat"], "base_density": 55},
+    "Lawyer Cat": {"image": catIcons["Lawyer Cat"], "base_density": 75},
+    "Jim": {"image": catIcons["Jim"], "base_density": 100},
 }
 
 const catLikes = [
@@ -83,7 +99,7 @@ function HatchingTab(props){
 
     function addCat(catType){
         let density = cats[catType].base_density;
-        density = Math.floor(density * 0.75 + Math.random() * 0.5 * density) // Add a little randomness to the values
+        density = new Decimal(Math.floor(density * 0.75 + Math.random() * 0.5 * density)) // Add a little randomness to the values
 
         let newCat = {"type": catType, "density": density, "id": props.state["nextCatId"]};
 
@@ -161,10 +177,17 @@ function HatchingTab(props){
     }
 
 
+    // Cute Cat": {"image": catIcons["Cute Cat"], "base_density": 35},
+    // "Superhero Cat": {"image": catIcons["Superhero Cat"], "base_density": 55},
+    // "Lawyer Cat": {"image": catIcons["Lawyer Cat"], "base_density": 75},
+    // "Jim": {"image": catIcons["Jim"], "base_density": 100},
+
     const eggs = [
         {"name": "Basic Egg", "Cost": new Decimal(5), "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
         {"name": "High Spending Egg", "Cost": new Decimal(100), "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
-       ]
+        {"name": "Chonker Egg", "Cost": new Decimal(500), "outcomes": [[40, "Hefty Cat"], [35, "Chonky Cat"], [20, "Megachonker"], [5, "Garf Cat"]], "image": "https://art.pixilart.com/sr2d139b3087eaws3.png"},
+        {"name": "Super Egg", "Cost": new Decimal(3000), "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
+    ]
 
     return (
         <div id="hatching-tab">
@@ -178,7 +201,7 @@ function HatchingTab(props){
                     <div className="egg-outcome-showoff">
                         {eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].outcomes.map((cat, index) => (
                             <div className="egg-outcome-showoff-container" key={index}>
-                                <img src={catIcons[cat[1]]}></img>
+                                <img className={props.state.catsSeen.includes(cat[1]) ? "" : "notFound"} src={catIcons[cat[1]]}></img>
                                 <h6>{cat[0]}%</h6>
                             </div>
                         ))}
@@ -196,11 +219,10 @@ function HatchingTab(props){
                         
                     </div>
                     
-
                     <div className="egg-outcome-showoff">
                         {eggs[props.state.eggHatchingIndex].outcomes.map((cat, index) => (
                             <div className="egg-outcome-showoff-container" key={index}>
-                                <img src={catIcons[cat[1]]}></img>
+                                <img className={props.state.catsSeen.includes(cat[1]) ? "" : "notFound"} src={catIcons[cat[1]]}></img>
                                 <h6>{cat[0]}%</h6>
                             </div>
                         ))}
@@ -218,7 +240,7 @@ function HatchingTab(props){
                     <div className="egg-outcome-showoff">
                         {eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].outcomes.map((cat, index) => (
                             <div className="egg-outcome-showoff-container" key={index}>
-                                <img src={catIcons[cat[1]]}></img>
+                                <img className={props.state.catsSeen.includes(cat[1]) ? "" : "notFound"} src={catIcons[cat[1]]}></img>
                                 <h6>{cat[0]}%</h6>
                             </div>
                         ))}

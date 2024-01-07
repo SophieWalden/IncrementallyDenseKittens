@@ -57,25 +57,27 @@
     background-repeat: no-repeat
 }
 
+
 #fight-display-left{
    display: flex;
-   justify-content: left;
    width: 45vw;
-
+   margin-left: 20vw !important;
+   margin-bottom: 0vh;
 }
 
 #fight-display-right{
     width: 45vw;
     display: flex;
-    justify-content: right;
+    margin-left: 60vw !important;
+    margin-bottom: 4vh;
 }
+
+
 
 #fight-display-right img,
 #fight-display-left img{
-    width: 15vw;
+    width: 10vw;
     height: 15vh;
-    margin: 1vw;
-    transition: transform 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 

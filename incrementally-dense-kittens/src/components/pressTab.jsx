@@ -1,6 +1,7 @@
 import "./pressTab.css"
 import {useState} from "react";
 import Decimal from "break_infinity.js";
+import {formatValues} from "./globalFunctions";
 
 function PressTab(props){
 
@@ -8,22 +9,20 @@ function PressTab(props){
         let totalDensity = new Decimal(0);
         let highestDensity = new Decimal(0);
         let amountOfCats = props.state.cats.length;
-        
 
         for (let i = 0; i < amountOfCats; i++){
 
-            totalDensity += props.state.cats[i].density;
-
-            if (props.state.cats[i].density.greaterThen(highestDensity)){
-                highestDensity = props.staet.cats[i].density
+            totalDensity = totalDensity.plus(props.state.cats[i].density);
+            if (props.state.cats[i].density.greaterThan(highestDensity)){
+                highestDensity = props.state.cats[i].density
             }
         }
 
-        let averageDensity = totalDensity / amountOfCats;
-        let newDensity = highestDensity + (averageDensity / newDensity)
-        newDensity = Math.floor((0.9 + Math.random() * 0.5) * newDensity);
+        let averageDensity = totalDensity.dividedBy(amountOfCats);
+        let newDensity = new Decimal(highestDensity.plus(averageDensity.dividedBy(highestDensity).times(amountOfCats)))
+        newDensity = Math.floor(newDensity.times(1 + Math.random() * 0.25));
 
-        let newCat = {"type": props.state.cats[Math.floor(Math.random() * amountOfCats)].type, "density": newDensity, "id": props.state["nextCatId"]};
+        let newCat = {"type": props.state.cats[Math.floor(Math.random() * amountOfCats)].type, "density": new Decimal(newDensity), "id": props.state["nextCatId"]};
 
         newCat["name"] = props.state.cats[Math.floor(Math.random() * amountOfCats)].name
         newCat["image"] = props.state.cats[Math.floor(Math.random() * amountOfCats)].image
@@ -34,7 +33,8 @@ function PressTab(props){
     
         props.setState((oldState) => ({...oldState, 
                 "cats": [newCat],
-                "equippedCats": []}));
+                "equippedCats": [],
+                "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(amountOfCats))}));
 
     }
 

@@ -8,6 +8,10 @@
     flex-direction: column;
 }
 
+.notFound{
+    filter: brightness(0%);
+}
+
 #eggs-display{
     width: 100vw;
     display: flex;

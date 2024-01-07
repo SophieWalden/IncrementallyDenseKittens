@@ -1,0 +1,153 @@
+
+.upgrades-row{
+    display: flex;
+    width: 80vw;
+    justify-content: space-evenly
+}
+
+.buyableUpgrade{
+    background: rgb(101, 175, 101) !important;
+}
+
+.upgradeBought{
+    background: rgb(83, 90, 150) !important;
+}
+
+#upgrades-container{
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 50vh;
+}
+
+#pressure-tab-almanac{
+    width: 20vw;
+    height: 5vh;
+    background: lightblue;
+    border: solid black 1px;
+    border-radius: 5px;
+
+    font-size: 1.3vw;
+
+}
+.hideTab{
+    display: none;
+}
+
+#almanac-hide-button{
+    position: relative;
+    left: 53vw;
+    top: -1vh;
+
+    width: 5vw;
+    height: 5vh;
+    background: rgb(184, 92, 92);
+    border: solid red 1px;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.25vw;
+    
+}
+
+#cats-found-display{
+    font-size: 1.25vw;
+}
+
+#pressure-tab-title{
+    font-size: 1.25vw;
+}
+
+#almanac-container{
+    padding-top: 3vh;
+    width: 60vw;
+    height: 60vh;
+    background: rgb(126, 102, 72);
+    border: solid black 1px;
+    border-radius: 5px;
+
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+#pressure-tab-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.almanac-cat{
+    width: 5vw;
+    height: 5vw;
+
+    padding: 0.5vw;
+    background:rgb(153, 126, 94);
+    border-radius: 5px;
+    border: solid rgb(24, 23, 10) 2px;
+}
+
+.not-found-cat{
+    filter: grayscale(1);
+}
+
+#almanac-top-bar{
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vh;
+}
+
+.upgrade{
+    width: 20vw;
+    height: 15vh;
+    background: lightcoral;
+    border-radius: 5px;
+    border: solid black 1px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.upgrade h2{
+    font-size: 1vw;
+    margin-bottom: 0;
+}
+
+.upgrade h3{
+    font-size: 0.75vw;
+    display: flex;
+    width: 15vw;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5vh;
+    margin-bottom: 0;
+
+}
+
+.upgrade h4{
+    font-size: 0.75vw;
+    margin-top: 0
+}
+
+#upgrades-container{
+    display: flex;
+
+    flex-wrap: wrap;
+    padding-left: 10vw;
+    padding-right: 10vw;
+
+}

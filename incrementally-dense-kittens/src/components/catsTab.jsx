@@ -1,5 +1,6 @@
 import "./catsTab.css"
 import {useState} from "react";
+import {formatValues} from "./globalFunctions";
 
 function CatsTab(props){
 
@@ -41,7 +42,7 @@ function CatsTab(props){
               {row.map(cat => (
                 <div key={cat.id} className={`inventory-tile ${cat.id == props.state["selectedCat"] ? "currently-selected-cat" : ""} ${props.state.equippedCats.includes(cat.id) ? "currently-equipped-cat" : ""}`} onClick={() => props.setState(oldState => ({...oldState, "selectedCat": cat.id}))}>
 
-                  <h3>{cat.density}</h3>
+                  <h3>{cat.density == null ? "" : formatValues(cat.density)}</h3>
                   <img src={cat.image}></img>
                 </div>
                 
@@ -60,7 +61,7 @@ function CatsTab(props){
 
                   <div id="cat-stats">
                     <h2>Type: {selectedCat().type}</h2>
-                    <h2>Density: {selectedCat().density}</h2>
+                    <h2>Density: {formatValues(selectedCat().density)}</h2>
                     <h2>Likes: {selectedCat().likes}</h2>
                   </div>
 
