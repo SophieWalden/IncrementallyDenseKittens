@@ -13,8 +13,31 @@
     align-items: center;
 }
 
+#reset-button{
+    width: 20vw;
+    height: 5vh;
+
+    background: rgb(156, 68, 68);
+    border-radius: 5px;
+    border: solid black 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #save-container{
     display: flex;
     width: 100vw;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+#options-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 100vw;
 }

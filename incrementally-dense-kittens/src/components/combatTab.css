@@ -9,6 +9,20 @@
     height: 85vh;
 }
 
+#explainer-text-combat h3{
+    margin-bottom: 0;
+    font-size: 1vw;
+}
+
+#explainer-text-combat h4{
+    margin: 0;
+    font-size: 0.75vw;
+}
+
+.unlockedEggStage{
+    background: rgb(212, 192, 78) !important;
+}
+
 #combat-explainer-text{
     font-size: 1vw;
     width: 20vw !important;

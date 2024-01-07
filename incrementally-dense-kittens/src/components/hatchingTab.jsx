@@ -243,12 +243,33 @@ function HatchingTab(props){
       }, [props.state.upgrades[7].unlocked]);
   
 
-    const eggs = [
+    const eggsDatabase = [
         {"name": "Basic Egg", "Cost": new Decimal(5), "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
         {"name": "High Spending Egg", "Cost": new Decimal(100), "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
         {"name": "Chonker Egg", "Cost": new Decimal(500), "outcomes": [[40, "Hefty Cat"], [35, "Chonky Cat"], [20, "Megachonker"], [5, "Garf Cat"]], "image": "https://art.pixilart.com/sr2d139b3087eaws3.png"},
         {"name": "Super Egg", "Cost": new Decimal(3000), "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
     ]
+
+    let [eggs, setEggs] = useState([eggsDatabase[0]]);
+
+    function addEggs(){
+        let addedEggs = [];
+        for (let i = 0; i < eggs.length; i++){
+            addedEggs.push(eggs[i].name)
+        }
+
+        for (let i = 0; i < props.state.unlockedEggs; i++){
+            if (eggsDatabase.length > i && !addedEggs.includes(eggsDatabase[i].name)){
+                setEggs((eggs) => [...eggs, eggsDatabase[i]])
+            }
+        }
+       
+    }
+
+    useEffect(() => {
+        addEggs();
+    }, [props.state.unlockedEggs])
+
 
     return (
         <div id="hatching-tab">
@@ -273,24 +294,24 @@ function HatchingTab(props){
                 </div>
 
                 <div className="egg-container" ref={middleEgg}>
-                    <h1>{eggs[props.state.eggHatchingIndex].name}</h1>
+                    <h1>{eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].name : ""}</h1>
 
-                    <img src={eggs[props.state.eggHatchingIndex].image}></img>
+                    <img src={eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].image : ""}></img>
                     <div className="sparkle-container">
                         
                     </div>
                     
                     <div className="egg-outcome-showoff">
-                        {eggs[props.state.eggHatchingIndex].outcomes.map((cat, index) => (
+                        {eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].outcomes.map((cat, index) => (
                             <div className="egg-outcome-showoff-container" key={index}>
                                 <img className={props.state.catsSeen.includes(cat[1]) ? "" : "notFound"} src={catIcons[cat[1]]}></img>
                                 <h6>{cat[0]}%</h6>
                             </div>
-                        ))}
+                        )) : <div></div>}
                     </div>
 
-                    <h3>Cost: {formatValues(eggs[props.state.eggHatchingIndex].Cost)}</h3>
-                    <h2 onClick={() => buyEgg(eggs[props.state.eggHatchingIndex])}>Buy</h2>
+                    <h3>Cost: {formatValues(eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].Cost : 0)}</h3>
+                    <h2 onClick={() => buyEgg(eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex] : -1)}>Buy</h2>
                 </div>
 
                 <div className="egg-container-right" ref={rightEgg}>

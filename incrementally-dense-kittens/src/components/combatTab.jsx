@@ -154,6 +154,7 @@ function CombatTab(props){
                 let updatedList = [...props.state.killsPerWorld];
                 let currentWorld = props.state.currentWorld;
                 let worldsUnlocked = props.state.worldsUnlocked
+                let eggsUnlocked = props.state.unlockedEggs;
                 updatedList[props.state.currentWorld] += 1;
 
                 // If 10 kills, unlock new world
@@ -161,9 +162,13 @@ function CombatTab(props){
                     updatedList.push(0);
                     currentWorld += 1;
                     worldsUnlocked.push(currentWorld);
+
+                    if (currentWorld % 3 == 0){
+                        eggsUnlocked += 1;
+                    }
                 }
 
-                return {...oldState, "killsPerWorld": updatedList, "currentWorld": currentWorld, "worldsUnlocked": worldsUnlocked}
+                return {...oldState, "killsPerWorld": updatedList, "currentWorld": currentWorld, "worldsUnlocked": worldsUnlocked, "unlockedEggs": eggsUnlocked}
             })
         }
         
@@ -329,9 +334,13 @@ function CombatTab(props){
 
                 </div>
                 <div id="enemy-selecter">
+                    <div id="explainer-text-combat">
+                        <h3>Progress to next world: {props.state.killsPerWorld.slice(-1)}/10 kills</h3>
+                        <h4>Unlock a new egg every 3 worlds! (Golden Worlds)</h4>
+                    </div>
                     <div id="world-selector">
                         {[0, 1, 2, 3, 4].map((world_index) => {
-                            return <h5 key={world_index} onClick={() => rotateWorlds(-1 * ((props.state.currentWorld % 5) - world_index))}>
+                            return <h5 className={`${(Math.floor(props.state.currentWorld / 5) + world_index) % 3 == 0 && (Math.floor(props.state.currentWorld / 5) + world_index) != 0 ? 'unlockedEggStage' : ''}`} key={world_index} onClick={() => rotateWorlds(-1 * ((props.state.currentWorld % 5) - world_index))}>
                                 {props.state.worldsUnlocked.includes(world_index + Math.floor(props.state.currentWorld / 5) * 5) ? world_index + Math.floor(props.state.currentWorld / 5) * 5 : "?"}
                             </h5> 
                         })}
