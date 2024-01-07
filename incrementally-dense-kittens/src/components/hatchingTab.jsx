@@ -1,5 +1,5 @@
 import "./hatchingTab.css"
-import {useState} from "react";
+import {useState, useEffect, useRef} from "react";
 import Decimal from "break_infinity.js";
 import {formatValues} from "./globalFunctions";
 
@@ -97,11 +97,13 @@ const catLikes = [
 
 function HatchingTab(props){
 
-    function addCat(catType){
+    function addCat(catType, buyAmount){
         let density = cats[catType].base_density;
         density = new Decimal(Math.floor(density * 0.75 + Math.random() * 0.5 * density)) // Add a little randomness to the values
 
-        let newCat = {"type": catType, "density": density, "id": props.state["nextCatId"]};
+        let id = props.state.nextCatId;
+        if (buyAmount != undefined) id += buyAmount;
+        let newCat = {"type": catType, "density": density, "id": id};
 
         newCat["name"] = coolCatNames[Math.floor(Math.random() * coolCatNames.length)]
         newCat["image"] = catIcons[catType]
@@ -117,26 +119,29 @@ function HatchingTab(props){
       }
 
     function buyEgg(egg){
-      
-        if (props.state.coins.greaterThanOrEqualTo(egg.Cost)){
-            let bought_type = null;
-
-            props.setState((oldState) => ({
-                ...oldState, "coins": oldState.coins.minus(egg.Cost)
-            }))
-
-            let roll = Math.random() * 100;
-          
-            for (let total = 0, i = 0; i < egg.outcomes.length; i++){
-                total += egg.outcomes[i][0];
-                
-                if (roll <= total){
-                    addCat(egg.outcomes[i][1]);
-                    bought_type = egg.outcomes[i][1];
-                    break
+        
+        let canBuy = Decimal.min(props.state.coins.dividedBy(egg.Cost).floor(),  props.state.eggOpeningAmount).toNumber(); // How many eggs of this type can you buy?
+        for (let i = 0; i < canBuy; i++){
+            if (props.state.coins.greaterThanOrEqualTo(egg.Cost)){
+                let bought_type = null;
+    
+                props.setState((oldState) => ({
+                    ...oldState, "coins": oldState.coins.minus(egg.Cost)
+                }))
+    
+                let roll = Math.random() * 100;
+              
+                for (let total = 0, i = 0; i < egg.outcomes.length; i++){
+                    total += egg.outcomes[i][0];
+                    
+                    if (roll <= total){
+                        addCat(egg.outcomes[i][1], Math.floor(Math.random() * Number.MAX_SAFE_INTEGER * 0.9));
+                        bought_type = egg.outcomes[i][1];
+                        break
+                    }
                 }
+                throwSparkles(bought_type)
             }
-            throwSparkles(bought_type)
         }
     }
 
@@ -172,15 +177,71 @@ function HatchingTab(props){
         return value
     }
 
+    const leftEgg = useRef(null);
+    const middleEgg = useRef(null);
+    const rightEgg = useRef(null);
+
     function rotateEggs(amount){
-        props.setState((oldState) => ({...oldState, "eggHatchingIndex": wrapAroundValues(oldState.eggHatchingIndex + amount, eggs.length)}));
+        // Rotate the eggs left
+        if (amount > 0){
+            let middleEggElement = middleEgg.current;
+            let rightEggElement = rightEgg.current;
+
+            if(middleEggElement && rightEggElement  ){
+                middleEggElement.classList.add('middle-rotate-left-animation');
+                rightEggElement.classList.add('right-rotate-left-animation');
+
+                
+                setTimeout(() => {
+                    props.setState((oldState) => ({...oldState, "eggHatchingIndex": wrapAroundValues(oldState.eggHatchingIndex + amount, eggs.length)}));
+
+                    setTimeout(() => {
+                        middleEggElement.classList.remove('middle-rotate-left-animation');
+                        middleEggElement.style.transform = 'translate(0, 0)';
+
+                        rightEggElement.classList.remove('right-rotate-left-animation');
+                        rightEggElement.style.transform = 'translate(0, 0)';
+                    }, 25)
+                }, 500)
+             
+            }
+        }else{
+            let middleEggElement = middleEgg.current;
+            let leftEggElement = leftEgg.current;
+
+            if(middleEggElement && leftEggElement  ){
+                middleEggElement.classList.add('middle-rotate-right-animation');
+                leftEggElement.classList.add('left-rotate-right-animation');
+
+                
+                setTimeout(() => {
+                    props.setState((oldState) => ({...oldState, "eggHatchingIndex": wrapAroundValues(oldState.eggHatchingIndex + amount, eggs.length)}));
+
+                    setTimeout(() => {
+                        middleEggElement.classList.remove('middle-rotate-right-animation');
+                        middleEggElement.style.transform = 'translate(0, 0)';
+
+                        leftEggElement.classList.remove('left-rotate-right-animation');
+                        leftEggElement.style.transform = 'translate(0, 0)';
+                    }, 25)
+                }, 500)
+             
+            }
+        }
     }
 
-
-    // Cute Cat": {"image": catIcons["Cute Cat"], "base_density": 35},
-    // "Superhero Cat": {"image": catIcons["Superhero Cat"], "base_density": 55},
-    // "Lawyer Cat": {"image": catIcons["Lawyer Cat"], "base_density": 75},
-    // "Jim": {"image": catIcons["Jim"], "base_density": 100},
+    // Rebuyable Egg Autobuyer
+    useEffect(() => {
+        // Set up the interval when the component mounts
+        let intervalId = null;
+        if (props.state.upgrades[7].unlocked != 0){
+            intervalId = setInterval(() => buyEgg(eggs[props.state.eggHatchingIndex]), props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked] * 1000);
+        }
+    
+        // Clean up the interval when the component is unmounted or intervalDuration changes
+        return () => clearInterval(intervalId);
+      }, [props.state.upgrades[7].unlocked]);
+  
 
     const eggs = [
         {"name": "Basic Egg", "Cost": new Decimal(5), "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
@@ -193,7 +254,7 @@ function HatchingTab(props){
         <div id="hatching-tab">
                 
             <div id="eggs-display">
-                <div className="egg-container-left">
+                <div className="egg-container-left" ref={leftEgg}>
                     <h1>{eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].name}</h1>
                     <img id="egg-container-display-image" src={eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].image}></img>
 
@@ -211,7 +272,7 @@ function HatchingTab(props){
                     <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)])}>Buy</h2>
                 </div>
 
-                <div className="egg-container">
+                <div className="egg-container" ref={middleEgg}>
                     <h1>{eggs[props.state.eggHatchingIndex].name}</h1>
 
                     <img src={eggs[props.state.eggHatchingIndex].image}></img>
@@ -232,7 +293,7 @@ function HatchingTab(props){
                     <h2 onClick={() => buyEgg(eggs[props.state.eggHatchingIndex])}>Buy</h2>
                 </div>
 
-                <div className="egg-container-right">
+                <div className="egg-container-right" ref={rightEgg}>
                     <h1>{eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].name}</h1>
                     <img className="egg-container-display-image"src={eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].image}></img>
 

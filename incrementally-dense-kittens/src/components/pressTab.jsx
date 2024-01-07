@@ -31,8 +31,24 @@ function PressTab(props){
         // Whenever you add a cat, increase the id value
         props.setState(oldState => ({...oldState, "nextCatId": oldState["nextCatId"] + 1}))
     
+        let newCats = [];
+        // Upgrade 6: Keep 3 highest density cats when using hydraulic press
+        if (props.state.upgrades[6].unlocked == 1){
+            for (let i = 0; i < props.state.cats.length; i++){
+                if (newCats.length < 3 || props.state.cats[i].density > newCats[0].density){
+                    newCats.push(props.state.cats[i]);
+                }
+
+                newCats.sort((a, b) => a.density.cmp(b.density));
+
+                if (newCats.length > 3){
+                    newCats = newCats.slice(-1);
+                }
+            }
+        }
+
         props.setState((oldState) => ({...oldState, 
-                "cats": [newCat],
+                "cats": [...newCats, newCat],
                 "equippedCats": [],
                 "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(amountOfCats))}));
 

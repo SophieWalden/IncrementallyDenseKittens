@@ -19,7 +19,8 @@ function isISOString(inputString) {
 function OptionsTab(props){
 
     function saveGame(){
-        localStorage.setItem("incrementallyDenseKittensSave", btoa(JSON.stringify(props.state)));
+        if (props.state.loaded || localStorage.getItem("incrementallyDenseKittensSave") == null)
+            localStorage.setItem("incrementallyDenseKittensSave", btoa(JSON.stringify(props.state)));
     }
     
     function loadGame(){
@@ -43,6 +44,7 @@ function OptionsTab(props){
             }
         }
 
+        save["loaded"] = true;
         props.setState(save);
     }
 
@@ -50,9 +52,12 @@ function OptionsTab(props){
         loadGame();
       }, []);
 
+
     useEffect(() => {
         saveGame()
     }, [props.state.coins, props.state.cats.length, props.state.playerLastAttackDate])
+ 
+    
 
     return (
         <div>

@@ -109,14 +109,14 @@
 
 .upgrade{
     width: 20vw;
-    height: 15vh;
+    height: 20vh;
     background: lightcoral;
     border-radius: 5px;
     border: solid black 1px;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 
 }
@@ -140,14 +140,17 @@
 
 .upgrade h4{
     font-size: 0.75vw;
-    margin-top: 0
+    margin-top: 0;
+    margin-bottom: 0;
+
 }
 
 #upgrades-container{
     display: flex;
 
-    flex-wrap: wrap;
+  
     padding-left: 10vw;
     padding-right: 10vw;
+    height: 65vh;
 
 }

@@ -55,9 +55,21 @@ function PressureTab(props){
         if (props.state.perkPoints >= cost && (upgrade.unlocked == 0 || [1,4,7].includes(upgradeId))){
             upgrade.unlocked += 1;
             props.setState((oldState) => ({...oldState, "perkPoints": oldState.perkPoints - cost, "upgrades": {...props.state.upgrades, upgradeId: upgrade}}))
+
+            enactUpgrade(upgradeId);
         }
-    
-        
+    }
+
+    function enactUpgrade(upgradeId){
+        // Doing the actual upgrading part of upgrades
+        if (upgradeId == 1){
+            props.setState((oldState) => ({...oldState, "maxEquippedCats": oldState.maxEquippedCats + 1}))
+        }
+
+        if (upgradeId == 4){
+            props.setState((oldState) => ({...oldState, "eggOpeningAmount": oldState.eggOpeningAmount + 1}))
+        }
+
     }
 
     return (
@@ -85,6 +97,7 @@ function PressureTab(props){
                         <div className={`upgrade ${props.state.perkPoints >= getCost(1) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(1)}>
                             <h2>{props.state.upgrades[1].name}</h2>
                             <h3>{props.state.upgrades[1].description}</h3>
+                            <h4>{props.state.upgrades[1].unlocked + 3} → {props.state.upgrades[1].unlocked + 4}</h4>
                             <h4>Cost: {formatValues(getCost(1))}</h4>
                         </div>
                         <div className={`upgrade ${props.state.upgrades[2].unlocked != 0 ? "upgradeBought" : ""} ${props.state.perkPoints >= getCost(2) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(2)}>
@@ -102,6 +115,7 @@ function PressureTab(props){
                         <div className={`upgrade ${props.state.perkPoints >= getCost(4) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(4)}>
                             <h2>{props.state.upgrades[4].name}</h2>
                             <h3>{props.state.upgrades[4].description}</h3>
+                            <h4>{props.state.upgrades[4].unlocked + 1} → {props.state.upgrades[4].unlocked + 2}</h4>
                             <h4>Cost: {formatValues(getCost(4))}</h4>
                         </div>
                         <div className={`upgrade ${props.state.upgrades[5].unlocked != 0 ? "upgradeBought" : ""} ${props.state.perkPoints >= getCost(5) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(5)}>
@@ -120,6 +134,7 @@ function PressureTab(props){
                         <div className={`upgrade  ${props.state.perkPoints >= getCost(7) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(7)}>
                             <h2>{props.state.upgrades[7].name}</h2>
                             <h3>{props.state.upgrades[7].description}</h3>
+                            <h4>{props.state.upgrades[7].unlocked == 0 ? "∞" : props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked]} → {props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked + 1]}</h4>
                             <h4>Cost: {formatValues(getCost(7))}</h4>
                         </div>
                         <div className={`upgrade ${props.state.upgrades[8].unlocked != 0 ? "upgradeBought" : ""} ${props.state.perkPoints >= getCost(8) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(8)}>

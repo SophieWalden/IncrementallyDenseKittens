@@ -80,7 +80,7 @@ function CombatTab(props){
     const playerFigtherImageRef = useRef(null);
     const enemyFigtherImageRef = useRef(null);
 
-    function generateEnemy(){
+    function generateEnemy(startingLostHealth){
         let level_modifier = 1.15 ** (props.state.currentWorld);
         let world = props.state.currentWorld;
         let maxWorldMade = Object.keys(worlds).filter((world) => world != "infinite").reduce(function(a, b){ return parseInt(a) > parseInt(b) ? a : b }); // Max World defined before infinite
@@ -108,14 +108,17 @@ function CombatTab(props){
         let enemy = enemies[enemyType];
         let level = Math.floor(worlds[world]["powerLevel"] * level_modifier);
 
+        if (startingLostHealth == undefined) startingLostHealth = 0;
+
         props.setState((oldState) => ({
             ...oldState,
             "enemyMaxHealth": new Decimal(enemy["health"]).times(level),
-            "enemyLostHealth": new Decimal(0),
+            "enemyLostHealth": new Decimal(startingLostHealth),
             "enemyDamage": new Decimal(enemy["damage"]).times(level),
             "enemySpeed": new Decimal(enemy["speed"]),
             "currentEnemy": enemyType,
-            "enemyPowerLevel": level
+            "enemyPowerLevel": level,
+            "enemyLastAttackDate": Date.now(),
         }))
     }
 
@@ -139,7 +142,12 @@ function CombatTab(props){
         // Enemy Dead
         if (props.state.enemyLostHealth.greaterThanOrEqualTo(props.state.enemyMaxHealth)){
             gainGoldFromKill(props.state.currentEnemy);
-            generateEnemy();
+
+            let overkillDamage = 0;
+            if (props.state.upgrades[8].unlocked == 1){
+                overkillDamage = props.state.enemyLostHealth.minus(props.state.enemyMaxHealth);
+            }
+            generateEnemy(overkillDamage);
 
             // Increment killed enemy counter
             props.setState((oldState) => {
@@ -171,8 +179,31 @@ function CombatTab(props){
 
         let timeSinceLastAttack = new Date() - props.state.playerLastAttackDate
         if (new Decimal(timeSinceLastAttack).greaterThanOrEqualTo(props.state.playerSpeed.times(1000))){
+
+            // 
+            let DamageAmp = 1;
+            if (props.state.upgrades[5].unlocked != 0){
+                for (let i = 0; i < props.state.cats.length; i++){
+
+                    if (props.state.equippedCats.includes(props.state.cats[i].id)){
+                        let catsDensity = props.state.cats[i].density;
+
+                        if (catsDensity.greaterThanOrEqualTo(30)){
+                            if (Math.random() * 100 < 25){
+                                DamageAmp *= 1.5;
+                            }
+                        }
+
+                        if (catsDensity.greaterThanOrEqualTo(250)){
+                            DamageAmp *= 1.2;
+                        }
+                    }
+                    
+                }
+            }
+
             props.setState((oldState) => ({...oldState, "playerLastAttackDate": Date.now(),
-                                                        "enemyLostHealth": oldState.enemyLostHealth.plus(props.state.playerDamage)}))
+                                                        "enemyLostHealth": oldState.enemyLostHealth.plus(props.state.playerDamage.times(DamageAmp))}))
 
         
             // Fight Animation
@@ -263,12 +294,14 @@ function CombatTab(props){
     
       }
 
+    const [showExtraEffects, setShowExtraEffects] = useState(false);
 
     return (
         <div id="combat-tab">
+        
             <div id="personal-combat-stats-container">
                 <h2>Yours Stats</h2>
-                
+                <h3 id="extraEffectsButton" className={`${props.state.upgrades[5].unlocked != 0 ? "" : "hideTab"}`}onClick={() => setShowExtraEffects(true)}>Powerful Combat Effects!</h3>
                 <div>
                     <h3>Health: {formatValues(props.state.playerMaxHealth.minus(props.state.playerLostHealth))}/{formatValues(props.state.playerMaxHealth)}</h3>
                     <div className="playerHeathbar">
@@ -276,12 +309,14 @@ function CombatTab(props){
                         <div className="playerRedHealth" style={{width: props.state.playerLostHealth.dividedBy(props.state.playerMaxHealth).times(20) + "vw"}}></div>
                     </div>
                 </div>
+    
 
                 <div className="attackSpeedBar">
                     <div className="speedBarFullPortion" style={{width: (new Decimal(new Date() - props.state.playerLastAttackDate).dividedBy(props.state.playerSpeed.times(1000))).times(20) + "vw"}}></div>
                     <div className="speedBarUnfullPortion" style={{width: new Decimal(20).minus(new Decimal(new Date() - props.state.playerLastAttackDate).dividedBy(props.state.playerSpeed.times(1000)).times(20)) + "vw"}}></div>
                 </div>
-                <h3>Damage: {formatValues(props.state.playerDamage)}</h3>
+                <h4 id="combat-explainer-text">Fight them by overwhelming them with your immense pressure caused by your high density cats!</h4>
+                <h3>Total Cat Density (Damage): {formatValues(props.state.playerDamage)}</h3>
             </div>
 
             <div id="enemy-display-container">
@@ -324,7 +359,22 @@ function CombatTab(props){
                         <div className="speedBarFullPortion" style={{width: (new Decimal(new Date() - props.state.enemyLastAttackDate).dividedBy(props.state.enemySpeed.times(1000))).times(20) + "vw"}}></div>
                         <div className="speedBarUnfullPortion" style={{width: new Decimal(20).minus(new Decimal(new Date() - props.state.enemyLastAttackDate).dividedBy(props.state.enemySpeed.times(1000)).times(20)) + "vw"}}></div>
                     </div>
-                    <h3>Damage: {formatValues(props.state.enemyDamage)}</h3>
+                    <h3>Pressure Damage: {formatValues(props.state.enemyDamage)}</h3>
+            </div>
+
+            <div id="extra-effects-container" className={`${showExtraEffects == true ? "" : "hideTab"}`}>
+                <h3 onClick={() => setShowExtraEffects(false)} id="exit-extra-effects-container-button">X</h3>
+
+                <h2>Earn Extra Powerful Effects based on the Density of your Cats!</h2>
+
+                <h3>These bonuses are per cat and they are additive per additional cat which meets the threshold!</h3>
+
+                <div id="bonuses">
+                    <h4>30 Density: 25% to crit for 150% damage (More Cats Increases Crit Damage)</h4>
+                    <h4>50 Density: 5% increased attack speed</h4>
+                    <h4>100 Density: 20% increased health</h4>
+                    <h4>250 Density: 20% increased damage</h4>
+                </div>
             </div>
 
         </div>

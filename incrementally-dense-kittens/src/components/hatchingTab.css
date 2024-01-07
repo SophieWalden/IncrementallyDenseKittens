@@ -249,3 +249,73 @@ top: 40vh;
     height: 5vw;
     animation: image-appear 2s ease-out forwards;
 }
+
+
+@keyframes slide-left-middle {
+    from {
+        transform: translateX(0) scaleX(1) scaleY(1); /* Start from the current position (initially on the right) */
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-25vw) scaleY(0.8) scaleX(1.05); /* Move 30vw to the left */
+        opacity: 0.6;
+      }
+  }
+
+
+.middle-rotate-left-animation{
+    animation: slide-left-middle 0.5s linear;
+}
+
+@keyframes slide-left {
+    from {
+        transform: translateX(0) scaleX(1) scaleY(1); /* Start from the current position (initially on the right) */
+        opacity: 0.6;
+      }
+      to {
+        transform: translateX(-28vw) scaleX(1) scaleY(1.3); /* Move 30vw to the left */
+        opacity: 1;
+      }
+  }
+
+
+.right-rotate-left-animation{
+    animation: slide-left 0.5s linear;
+}
+
+
+
+@keyframes slide-right-middle {
+    from {
+        transform: translateX(0) scaleX(1) scaleY(1); /* Start from the current position (initially on the right) */
+        opacity: 1;
+      }
+      to {
+        transform: translateX(25vw) scaleY(0.75) scaleX(1.05); /* Move 30vw to the left */
+        opacity: 0.6;
+
+      }
+  }
+
+
+.middle-rotate-right-animation{
+    animation: slide-right-middle 0.5s linear;
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(0) scaleX(1) scaleY(1); /* Start from the current position (initially on the right) */
+        opacity: 0.6;
+      }
+      to {
+        transform: translateX(30vw) scaleX(0.9) scaleY(1.2); /* Move 30vw to the left */
+        opacity: 1;
+      }
+  }
+
+
+.left-rotate-right-animation{
+    animation: slide-right 0.5s linear;
+}
+
+
