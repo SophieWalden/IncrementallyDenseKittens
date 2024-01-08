@@ -17,6 +17,48 @@ const catIcons = {
     "Lawyer Cat": "https://i.imgur.com/Pb6INth.png",
     "Cute Cat": "https://i.imgur.com/8CrUpVy.png",
     "Jim": "https://i.imgur.com/1KTu8g4.png",
+    "Water Cat": "https://i.imgur.com/5RDyC0s.png",
+    "Lava Cat": "https://i.imgur.com/TLxJEXt.png",
+    "Earth Cat": "https://i.imgur.com/EWtflaq.png",
+    "Air Cat": "https://i.imgur.com/LKtk9KS.png",
+    "Fox": "https://i.imgur.com/8hyOUrP.png",
+    "Dog": "https://i.imgur.com/wyIDMHu.png",
+    "Turtle": "https://i.imgur.com/uQJoR8m.png",
+    "Three Cats One Trenchcoat": "https://i.imgur.com/esoAfbC.png",
+    "Sycthe Cat": "https://i.imgur.com/edI14Qp.png",
+    "Nunchuck Cat": "https://i.imgur.com/EFs3Tvy.png",
+    "Sword Cat": "https://i.imgur.com/uagQHeD.png",
+    "Gun Cat": "https://i.imgur.com/29GscWz.png",
+}
+
+
+const catPoints = {
+    "Knitting Cat": 1,
+    "Cat Toy Cat": 6,
+    "Squirrel Cat": 2,
+    "Void Cat": 5,
+    "Princess Cat": 4,
+    "Classy Cat": 3,
+    "Hefty Cat": 7,
+    "Chonky Cat": 8,
+     "Megachonker": 9,
+    "Garf Cat": 15,
+    "Superhero Cat": 10,
+    "Lawyer Cat": 11,
+    "Cute Cat": 12,
+    "Jim": 20,
+    "Water Cat": 5,
+    "Lava Cat": 10,
+    "Earth Cat": 15,
+    "Air Cat": 25,
+    "Fox": 25,
+    "Dog": 15,
+    "Turtle": 20,
+    "Three Cats One Trenchcoat": 30,
+    "Sycthe Cat": 30,
+    "Nunchuck Cat": 20,
+    "Sword Cat": 40,
+    "Gun Cat": 50,
 }
 
 
@@ -32,7 +74,8 @@ function PressureTab(props){
             if (!props.state.catsSeen.includes(currentCat)){
                 props.state.catsSeen.push(currentCat);
 
-                props.setState((oldState) => ({...oldState, "perkPoints": oldState.perkPoints + 1}))
+                
+                props.setState((oldState) => ({...oldState, "perkPoints": oldState.perkPoints + catPoints[currentCat]}))
             }
         }
     }
@@ -78,10 +121,13 @@ function PressureTab(props){
                 <div id="almanac-top-bar">
                     <h2 id="pressure-tab-almanac" onClick={() => showAlmanac(true)}>Almanac</h2>
 
-                    <h2 id="cats-found-display">Cats Found: {props.state.perkPoints}</h2>
+                    <h2 id="cats-found-display">Perk Points: {props.state.perkPoints}</h2>
                 </div>
 
-                <h2 id="pressure-tab-title">Collect more unique cats to get more perk points!</h2>
+                <div id="pressure-tab-explainer-div">
+                    <h2 id="pressure-tab-title">Collect more unique cats to get more perk points!</h2>
+                    <h3>Gain more points scaling based on pet rarity and egg cost!</h3>
+                </div>
 
                 <div className={almanac ? "" : "hideTab"}>
                     <div id="almanac-container">
@@ -111,7 +157,7 @@ function PressureTab(props){
                             <h4>Cost: {formatValues(props.state.upgrades[3].cost)}</h4>
                         </div>
                     </div>
-                    <div className="upgrades-row">
+                    <div className={`upgrades-row ${props.state.upgrades[3].unlocked == 0 ? "hiddenTab" : ""}`}>
                         <div className={`upgrade ${props.state.perkPoints >= getCost(4) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(4)}>
                             <h2>{props.state.upgrades[4].name}</h2>
                             <h3>{props.state.upgrades[4].description}</h3>
@@ -130,7 +176,7 @@ function PressureTab(props){
                         </div>
 
                     </div>
-                    <div className="upgrades-row">
+                    <div className={`upgrades-row ${props.state.upgrades[3].unlocked == 0 ? "hiddenTab" : ""}`}>
                         <div className={`upgrade  ${props.state.perkPoints >= getCost(7) ? "buyableUpgrade" : ""}`} onClick={() => buyUpgrade(7)}>
                             <h2>{props.state.upgrades[7].name}</h2>
                             <h3>{props.state.upgrades[7].description}</h3>

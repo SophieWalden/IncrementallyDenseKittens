@@ -61,6 +61,8 @@
 
 #pressure-tab-title{
     font-size: 1.25vw;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 #almanac-container{
@@ -96,7 +98,7 @@
 }
 
 .not-found-cat{
-    filter: grayscale(1);
+    filter: grayscale(1) brightness(20%);
 }
 
 #almanac-top-bar{
@@ -153,4 +155,8 @@
     padding-right: 10vw;
     height: 65vh;
 
+}
+
+#pressure-tab-explainer-div h3{
+    font-size: 1vw;
 }

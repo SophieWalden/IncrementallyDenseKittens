@@ -66,6 +66,18 @@ const catIcons = {
     "Lawyer Cat": "https://i.imgur.com/Pb6INth.png",
     "Cute Cat": "https://i.imgur.com/8CrUpVy.png",
     "Jim": "https://i.imgur.com/1KTu8g4.png",
+    "Water Cat": "https://i.imgur.com/5RDyC0s.png",
+    "Lava Cat": "https://i.imgur.com/TLxJEXt.png",
+    "Earth Cat": "https://i.imgur.com/EWtflaq.png",
+    "Air Cat": "https://i.imgur.com/LKtk9KS.png",
+    "Fox": "https://i.imgur.com/8hyOUrP.png",
+    "Dog": "https://i.imgur.com/wyIDMHu.png",
+    "Turtle": "https://i.imgur.com/uQJoR8m.png",
+    "Three Cats One Trenchcoat": "https://i.imgur.com/esoAfbC.png",
+    "Sycthe Cat": "https://i.imgur.com/edI14Qp.png",
+    "Nunchuck Cat": "https://i.imgur.com/EFs3Tvy.png",
+    "Sword Cat": "https://i.imgur.com/uagQHeD.png",
+    "Gun Cat": "https://i.imgur.com/29GscWz.png",
 }
 
 const cats = {
@@ -83,6 +95,18 @@ const cats = {
     "Superhero Cat": {"image": catIcons["Superhero Cat"], "base_density": 55},
     "Lawyer Cat": {"image": catIcons["Lawyer Cat"], "base_density": 75},
     "Jim": {"image": catIcons["Jim"], "base_density": 100},
+    "Fox": {"image": catIcons["Fox"], "base_density": 115},
+    "Dog": {"image": catIcons["Dog"], "base_density": 65},
+    "Turtle": {"image": catIcons["Turtle"], "base_density": 95},
+    "Three Cats One Trenchcoat": {"image": catIcons["Three Cats One Trenchcoat"], "base_density": 150},
+    "Water Cat": {"image": catIcons["Water Cat"], "base_density": 40},
+    "Air Cat": {"image": catIcons["Air Cat"], "base_density": 25},
+    "Lava Cat": {"image": catIcons["Lava Cat"], "base_density": 30},
+    "Earth Cat": {"image": catIcons["Earth Cat"], "base_density": 50},
+    "Sycthe Cat": {"image": catIcons["Sycthe Cat"], "base_density": 155},
+    "Nunchuck Cat": {"image": catIcons["Nunchuck Cat"], "base_density": 95},
+    "Sword Cat": {"image": catIcons["Sword Cat"], "base_density": 130},
+    "Gun Cat": {"image": catIcons["Gun Cat"], "base_density": 200},
 }
 
 const catLikes = [
@@ -120,15 +144,28 @@ function HatchingTab(props){
 
     function buyEgg(egg){
         
-        let canBuy = Decimal.min(props.state.coins.dividedBy(egg.Cost).floor(),  props.state.eggOpeningAmount).toNumber(); // How many eggs of this type can you buy?
+        let canBuy;
+        if (egg.currency == "Coins") canBuy = Decimal.min(props.state.coins.dividedBy(egg.Cost).floor(),  props.state.eggOpeningAmount).toNumber(); // How many eggs of this type can you buy?
+        if (egg.currency == "Pressurized Coins") canBuy = Decimal.min(props.state.pressurizedCoins.dividedBy(egg.Cost).floor(),  props.state.eggOpeningAmount).toNumber();
+
         for (let i = 0; i < canBuy; i++){
-            if (props.state.coins.greaterThanOrEqualTo(egg.Cost)){
+            if ((egg.currency == "Coins" && props.state.coins.greaterThanOrEqualTo(egg.Cost)) || (egg.currency == "Pressurized Coins" && props.state.pressurizedCoins.greaterThanOrEqualTo(egg.Cost))){
                 let bought_type = null;
     
-                props.setState((oldState) => ({
-                    ...oldState, "coins": oldState.coins.minus(egg.Cost)
-                }))
+                // Losing resources for purchasing
+                if (egg.currency == "Coins"){
+                    props.setState((oldState) => ({
+                        ...oldState, "coins": oldState.coins.minus(egg.Cost)
+                    }))
+                }
+                
+                if (egg.currency == "Pressurized Coins"){
+                    props.setState((oldState) => ({
+                        ...oldState, "pressurizedCoins": oldState.pressurizedCoins.minus(egg.Cost)
+                    }))
+                }
     
+                // Calculating which pet you get from opening
                 let roll = Math.random() * 100;
               
                 for (let total = 0, i = 0; i < egg.outcomes.length; i++){
@@ -243,19 +280,36 @@ function HatchingTab(props){
       }, [props.state.upgrades[7].unlocked]);
   
 
+  
     const eggsDatabase = [
-        {"name": "Basic Egg", "Cost": new Decimal(5), "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
-        {"name": "High Spending Egg", "Cost": new Decimal(100), "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
-        {"name": "Chonker Egg", "Cost": new Decimal(500), "outcomes": [[40, "Hefty Cat"], [35, "Chonky Cat"], [20, "Megachonker"], [5, "Garf Cat"]], "image": "https://art.pixilart.com/sr2d139b3087eaws3.png"},
-        {"name": "Super Egg", "Cost": new Decimal(3000), "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
+        {"name": "Basic Egg", "Cost": new Decimal(5), "currency": "Coins", "outcomes": [[55, "Knitting Cat"], [30, "Squirrel Cat"], [15, "Classy Cat"]], "image": "https://art.pixilart.com/sr28b85d0c470aws3.png"},
+        {"name": "High Spending Egg", "Cost": new Decimal(100), "currency": "Coins", "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
+        {"name": "Chonker Egg", "Cost": new Decimal(250), "currency": "Coins", "outcomes": [[40, "Hefty Cat"], [35, "Chonky Cat"], [20, "Megachonker"], [5, "Garf Cat"]], "image": "https://art.pixilart.com/sr2d139b3087eaws3.png"},
+        {"name": "Super Egg", "Cost": new Decimal(1000), "currency": "Coins", "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
+        {"name": "Not A Cat Egg", "Cost": new Decimal(30000), "currency": "Coins", "outcomes": [[60, "Dog"], [30, "Turtle"], [8, "Fox"], [2, "Three Cats One Trenchcoat"]], "image": "https://art.pixilart.com/sr2a383aaad61aws3.png"},
+        {"name": "Weapon Cats", "Cost": new Decimal(10000), "currency": "Coins", "outcomes": [[60, "Sycthe Cat"], [31, "Nunchuck Cat"], [8, "Sword Cat"], [1, "Gun Cat"]], "image": "https://art.pixilart.com/sr25a569fd5e9aws3.png"},
+    ]
+
+
+    const pressurizedEggsDatabase = [
+        {"name": "Pressurized Egg", "Cost": new Decimal(25), "currency": "Pressurized Coins", "outcomes": [[55, "Water Cat"], [25, "Air Cat"], [15, "Lava Cat"], [5, "Earth Cat"]], "image": "https://art.pixilart.com/sr2052fd7b15faws3.png"},
     ]
 
     let [eggs, setEggs] = useState([eggsDatabase[0]]);
 
     function addEggs(){
         let addedEggs = [];
+        let removeIndexList = [];
         for (let i = 0; i < eggs.length; i++){
+            if (addedEggs.includes(eggs[i].name)){
+                removeIndexList.push(i);
+            }
+
             addedEggs.push(eggs[i].name)
+        }
+
+        for (let i = removeIndexList.length - 1; i >= 0; i--){
+            eggs.splice(removeIndexList[i], 1);
         }
 
         for (let i = 0; i < props.state.unlockedEggs; i++){
@@ -263,12 +317,17 @@ function HatchingTab(props){
                 setEggs((eggs) => [...eggs, eggsDatabase[i]])
             }
         }
+
+        if (props.state.upgrades[3].unlocked != 0 && !addedEggs.includes(pressurizedEggsDatabase[0].name)){
+            setEggs((eggs) => [...eggs, pressurizedEggsDatabase[0]])
+        }
        
+        
     }
 
     useEffect(() => {
         addEggs();
-    }, [props.state.unlockedEggs])
+    }, [props.state.unlockedEggs, props.state.upgrades[3].unlocked])
 
 
     return (
@@ -289,7 +348,7 @@ function HatchingTab(props){
                         ))}
                     </div>
 
-                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].Cost)}</h3>
+                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].Cost)} {eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)].currency}</h3>
                     <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex - 1, eggs.length)])}>Buy</h2>
                 </div>
 
@@ -310,7 +369,7 @@ function HatchingTab(props){
                         )) : <div></div>}
                     </div>
 
-                    <h3>Cost: {formatValues(eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].Cost : 0)}</h3>
+                    <h3>Cost: {formatValues(eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].Cost : 0)} {eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].currency : ""}</h3>
                     <h2 onClick={() => buyEgg(eggs.length > props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex] : -1)}>Buy</h2>
                 </div>
 
@@ -328,7 +387,7 @@ function HatchingTab(props){
                         ))}
                     </div>
 
-                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].Cost)}</h3>
+                    <h3>Cost: {formatValues(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].Cost)} {eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)].currency}</h3>
                     <h2 onClick={() => buyEgg(eggs[wrapAroundValues(props.state.eggHatchingIndex + 1, eggs.length)])}>Buy</h2>
                 </div>
             </div>

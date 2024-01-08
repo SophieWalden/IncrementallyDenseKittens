@@ -309,3 +309,19 @@
     border: solid black 1px;
     border-radius: 5px;
 }
+
+#combat-tab h2{
+    font-size: 1.5vw;
+}
+
+#combat-tab h3{
+    font-size: 1.25vw;
+}
+
+#combat-tab h4{
+    font-size: 0.75vw;
+}
+
+#combat-tab h5{
+    font-size: 1vw;
+}

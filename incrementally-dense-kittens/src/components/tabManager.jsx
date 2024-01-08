@@ -57,14 +57,14 @@ function TabManager(){
         "catsSeen": [],
         "perkPoints": 0,
         "upgrades": {1: {"name": "Cat Legion Unleashed", "description": "[Rebuyable] Equip More Cats!", "unlocked": 0, "cost": 3, id:1},
-        2:{"name": "Feline Frenzy", "description": "Scale Attack Speed with amount of equipped cats. 10% per cat", "unlocked": 0, "cost": 10, id:2},
-        3:{"name": "Hydraulic Press!", "description": "Too many cats? Unlock the Hydraulic press and new eggs based on compacting cats together", "cost": 5, "unlocked": 0, id:3},
+        2:{"name": "Feline Frenzy", "description": "Scale Attack Speed with amount of equipped cats. 10% per cat", "unlocked": 0, "cost": 20, id:2},
+        3:{"name": "Hydraulic Press!", "description": "Too many cats? Unlock the Hydraulic press and new eggs based on compacting cats together", "cost": 10, "unlocked": 0, id:3},
         4:{"name": "Multi Egg Elegance", "description": "[Rebuyable] Open more eggs at once", "cost": 7, "unlocked": 0, id:4},
-        5:{"name": "Density Drive", "description": "Unlock powerful combat effects after hitting density milestones per cat (Crit, Attack Speed, etc)", "cost": 15, "unlocked": 0, id:5},
-        6:{"name": "Unstoppable Pressure", "description": "Keep your 3 highest density cats when using the Hydraulic Press", "cost": 20, "unlocked": 0, id:6},
-        7:{"name": "Auto Egg Bot", "description": "[Rebuyable] Opens your active egg every x seconds", "cost": 10, "unlocked": 0, id:7},
-        8:{"name": "Overkill Overdrive", "description": "Excess damage in combat carries over to the next enemy", "cost": 40, "unlocked": 0, id:8},
-        9:{"name": "Stellar Accumulate", "description": "Unlock Stellar Cats [Warning: Not Developed Yet: This is the end for now!]", "cost": 100, "unlocked": 0, id:9},
+        5:{"name": "Density Drive", "description": "Unlock powerful combat effects after hitting density milestones per cat (Crit, Attack Speed, etc)", "cost": 35, "unlocked": 0, id:5},
+        6:{"name": "Unstoppable Pressure", "description": "Keep your 3 highest density cats when using the Hydraulic Press", "cost": 50, "unlocked": 0, id:6},
+        7:{"name": "Auto Egg Bot", "description": "[Rebuyable] Opens your active egg every x seconds", "cost": 30, "unlocked": 0, id:7},
+        8:{"name": "Overkill Overdrive", "description": "Excess damage in combat carries over to the next enemy", "cost": 100, "unlocked": 0, id:8},
+        9:{"name": "Stellar Accumulate", "description": "Unlock Stellar Cats [Warning: Not Developed Yet: This is the end for now!]", "cost": 500, "unlocked": 0, id:9},
             },
 
         // Options Tab
@@ -152,7 +152,7 @@ function TabManager(){
                 </div>
                 <div id="resource-display">
                     <h3 style={{color: "#c4be66"}}>Coins: {formatValues(state.coins)}</h3>
-                    <h3 style={{color: "darkseagreen"}}>Pressurized Coins: {formatValues(state.pressurizedCoins)}</h3>
+                    <h3 style={{color: "darkseagreen"}} className={`${state.upgrades[3].unlocked == 0 ? "hiddenTab" : ""}`}>Pressurized Coins: {formatValues(state.pressurizedCoins)}</h3>
                     <h3 style={{color: "lightblue"}}>Equipped: {state.equippedCats.length}/{state.maxEquippedCats}</h3>
                 </div>
                </div>

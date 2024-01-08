@@ -50,7 +50,10 @@ function PressTab(props){
         props.setState((oldState) => ({...oldState, 
                 "cats": [...newCats, newCat],
                 "equippedCats": [],
-                "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(amountOfCats))}));
+                "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(amountOfCats)),
+                "catsSeen": [],
+        }));
+
 
     }
 
@@ -60,6 +63,7 @@ function PressTab(props){
                     <h1>Do you have too many cats?</h1>
                     <h2>Combine all of your existing cats into one denser cat</h2>
                     <h1>Warning: This will remove all of your current cats</h1>
+                    <h1>Also resets your Almanac, allowing you to get even more perk points!</h1>
                 </div>
 
         
