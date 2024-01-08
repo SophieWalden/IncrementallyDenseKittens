@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.e910ce46.css",
-    "main.js": "/static/js/main.4f83240d.js",
-    "static/js/787.75b73eba.chunk.js": "/static/js/787.75b73eba.chunk.js",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/index.html",
-    "main.e910ce46.css.map": "/static/css/main.e910ce46.css.map",
-    "main.4f83240d.js.map": "/static/js/main.4f83240d.js.map",
-    "787.75b73eba.chunk.js.map": "/static/js/787.75b73eba.chunk.js.map"
+    "main.css": "/IncrementallyDenseKittens/static/css/main.e910ce46.css",
+    "main.js": "/IncrementallyDenseKittens/static/js/main.42e93abe.js",
+    "static/js/787.75b73eba.chunk.js": "/IncrementallyDenseKittens/static/js/787.75b73eba.chunk.js",
+    "static/media/logo.svg": "/IncrementallyDenseKittens/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/IncrementallyDenseKittens/index.html",
+    "main.e910ce46.css.map": "/IncrementallyDenseKittens/static/css/main.e910ce46.css.map",
+    "main.42e93abe.js.map": "/IncrementallyDenseKittens/static/js/main.42e93abe.js.map",
+    "787.75b73eba.chunk.js.map": "/IncrementallyDenseKittens/static/js/787.75b73eba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e910ce46.css",
-    "static/js/main.4f83240d.js"
+    "static/js/main.42e93abe.js"
   ]
 }
