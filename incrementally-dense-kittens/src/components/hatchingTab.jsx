@@ -86,7 +86,7 @@ const cats = {
     "Squirrel Cat": {"image": catIcons["Squirrel Cat"], "base_density": 8},
     "Void Cat": {"image": catIcons["Void Cat"], "base_density": 18},
     "Princess Cat": {"image": catIcons["Princess Cat"], "base_density": 13},
-    "Classy Cat": {"image": catIcons["Classy Cat"], "base_density": 10},
+    "Classy Cat": {"image": catIcons["Classy Cat"], "base_density": 12},
     "Hefty Cat": {"image": catIcons["Hefty Cat"], "base_density": 20},
     "Chonky Cat": {"image": catIcons["Chonky Cat"], "base_density": 25},
     "Megachonker": {"image": catIcons["Megachonker"], "base_density": 35},
@@ -292,7 +292,7 @@ function HatchingTab(props){
 
 
     const pressurizedEggsDatabase = [
-        {"name": "Pressurized Egg", "Cost": new Decimal(25), "currency": "Pressurized Coins", "outcomes": [[55, "Water Cat"], [25, "Air Cat"], [15, "Lava Cat"], [5, "Earth Cat"]], "image": "https://art.pixilart.com/sr2052fd7b15faws3.png"},
+        {"name": "Pressurized Egg", "Cost": new Decimal(25), "currency": "Pressurized Coins", "outcomes": [[55, "Air Cat"], [25, "Lava Cat"], [15, "Water Cat"], [5, "Earth Cat"]], "image": "https://art.pixilart.com/sr2052fd7b15faws3.png"},
     ]
 
     let [eggs, setEggs] = useState([eggsDatabase[0]]);
