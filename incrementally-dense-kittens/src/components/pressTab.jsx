@@ -55,29 +55,22 @@ function PressTab(props){
         let newDensity = new Decimal(highestDensity.plus(averageDensity.dividedBy(highestDensity).times(amountOfCats)))
         newDensity = Math.floor(newDensity.times(1 + Math.random() * 0.25));
 
-        let newCat = {"type": props.state.cats[Math.floor(Math.random() * amountOfCats)].type, "density": new Decimal(newDensity), "id": props.state["nextCatId"]};
+        let newCat = {"type": props.state.cats[Math.floor(Math.random() * amountOfCats)].type, "density": new Decimal(newDensity), "id": Math.floor(Math.random() * Number.MAX_SAFE_INTEGER * 0.9)};
 
         newCat["name"] = props.state.cats[Math.floor(Math.random() * amountOfCats)].name
         newCat["image"] = props.state.cats[Math.floor(Math.random() * amountOfCats)].image
         newCat["likes"] = props.state.cats[Math.floor(Math.random() * amountOfCats)].likes
 
-        // Whenever you add a cat, increase the id value
-        props.setState(oldState => ({...oldState, "nextCatId": oldState["nextCatId"] + 1}))
+
     
         let newCats = [];
         // Upgrade 6: Keep 3 highest density cats when using hydraulic press
         if (props.state.upgrades[6].unlocked == 1){
-            for (let i = 0; i < props.state.cats.length; i++){
-                if (newCats.length < 3 || props.state.cats[i].density > newCats[0].density){
-                    newCats.push(props.state.cats[i]);
-                }
+            let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
 
-                newCats.sort((a, b) => a.density.cmp(b.density));
-
-                if (newCats.length > 3){
-                    newCats = newCats.slice(-1);
-                }
-            }
+            newCats.push(cats[0]);
+            newCats.push(cats[1]);
+            newCats.push(cats[2]);
         }
 
         props.setState((oldState) => ({...oldState, 
@@ -86,6 +79,12 @@ function PressTab(props){
                 "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(pressurizedCoinsGained)),
                 "catsSeen": [],
                 "coins": new Decimal(10),
+                "currentWorld": 0,
+                "worldsUnlocked": [0],
+                "killsPerWorld": [0],
+                "enemyPowerLevel": 1,
+                "firstEnemy": true,
+
         }));
 
 

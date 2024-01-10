@@ -267,17 +267,6 @@ function HatchingTab(props){
         }
     }
 
-    // Rebuyable Egg Autobuyer
-    useEffect(() => {
-        // Set up the interval when the component mounts
-        let intervalId = null;
-        if (props.state.upgrades[7].unlocked != 0){
-            intervalId = setInterval(() => buyEgg(eggs[props.state.eggHatchingIndex]), props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked] * 1000);
-        }
-    
-        // Clean up the interval when the component is unmounted or intervalDuration changes
-        return () => clearInterval(intervalId);
-      }, [props.state.upgrades[7].unlocked]);
   
 
   
@@ -286,7 +275,7 @@ function HatchingTab(props){
         {"name": "High Spending Egg", "Cost": new Decimal(100), "currency": "Coins", "outcomes": [[40, "Classy Cat"], [25, "Princess Cat"], [20, "Void Cat"], [15, "Cat Toy Cat"]], "image": "https://art.pixilart.com/sr27c358cd449aws3.png"},
         {"name": "Chonker Egg", "Cost": new Decimal(250), "currency": "Coins", "outcomes": [[40, "Hefty Cat"], [35, "Chonky Cat"], [20, "Megachonker"], [5, "Garf Cat"]], "image": "https://art.pixilart.com/sr2d139b3087eaws3.png"},
         {"name": "Super Egg", "Cost": new Decimal(1000), "currency": "Coins", "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
-        {"name": "Not A Cat Egg", "Cost": new Decimal(30000), "currency": "Coins", "outcomes": [[60, "Dog"], [30, "Turtle"], [8, "Fox"], [2, "Three Cats One Trenchcoat"]], "image": "https://art.pixilart.com/sr2a383aaad61aws3.png"},
+        {"name": "Not A Cat Egg", "Cost": new Decimal(3000), "currency": "Coins", "outcomes": [[60, "Dog"], [30, "Turtle"], [8, "Fox"], [2, "Three Cats One Trenchcoat"]], "image": "https://art.pixilart.com/sr2a383aaad61aws3.png"},
         {"name": "Weapon Cats", "Cost": new Decimal(10000), "currency": "Coins", "outcomes": [[60, "Sycthe Cat"], [31, "Nunchuck Cat"], [8, "Sword Cat"], [1, "Gun Cat"]], "image": "https://art.pixilart.com/sr25a569fd5e9aws3.png"},
     ]
 
@@ -328,6 +317,24 @@ function HatchingTab(props){
     useEffect(() => {
         addEggs();
     }, [props.state.unlockedEggs, props.state.upgrades[3].unlocked])
+
+
+
+    // Rebuyable Egg Autobuyer
+    useEffect(() => {
+        // Set up the interval when the component mounts
+        if (props.state.upgrades[7].unlocked != 0){
+            let timeSinceLastBuy = (new Date()) - props.state.lastAutobuyingDate;
+   
+            if ((timeSinceLastBuy / 1000) > props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked]){
+                props.setState((oldState) => ({...oldState, "lastAutobuyingDate": new Date()}));
+                
+                if (eggs.length > props.state.eggHatchingIndex){
+                    buyEgg(eggs[props.state.eggHatchingIndex]);
+                }
+            }
+        }
+      }, [props.state.upgrades[7].unlocked, props.state.eggHatchingIndex, props.state.equippedCats.length, props.state.enemyLostHealth, props.state.playerLostHealth]);
 
 
     return (
@@ -396,6 +403,9 @@ function HatchingTab(props){
 
                 {props.state.eggHatchingIndex}
                 <h3 onClick={() => rotateEggs(1)}>→</h3>
+            </div>
+            <div className={`${props.state.upgrades[7].unlocked == 0 ? 'hideTab' : ''}`} id="autobuyer-display">
+                <h3>Autobuying {eggs.length> props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].name : "Nothing"} every {props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked]} seconds</h3>
             </div>
              
         </div>

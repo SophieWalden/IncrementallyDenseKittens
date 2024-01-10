@@ -299,6 +299,15 @@ function CombatTab(props){
     
       }
 
+      function findCat(id){
+        console.log(props.state.equippedCats)
+        for (let i = 0; i < props.state.cats.length; i++){
+            if (props.state.cats[i].id == id) return props.state.cats[i];
+        }
+
+        return {img: ""};
+      }
+
     const [showExtraEffects, setShowExtraEffects] = useState(false);
 
     return (
@@ -328,7 +337,7 @@ function CombatTab(props){
                 <div id="enemy-display">
 
                     <div id="fight-display-right"><img src={enemyImages[props.state.currentEnemy]} ref={enemyFigtherImageRef}></img></div>
-                    <div id="fight-display-left">{props.state.equippedCats.length != 0 && <img src={getCat(props.state.cats, props.state.equippedCats[0]).image} ref={playerFigtherImageRef}></img>}</div>
+                    <div id="fight-display-left">{props.state.equippedCats.length != 0 && <img src={findCat(props.state.equippedCats[0]).image} ref={playerFigtherImageRef}></img>}</div>
                     
 
 

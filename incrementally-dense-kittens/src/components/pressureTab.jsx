@@ -120,7 +120,7 @@ function PressureTab(props){
 
                 <div id="almanac-top-bar">
                     <h2 id="pressure-tab-almanac" onClick={() => showAlmanac(true)}>Almanac</h2>
-
+                    <h3>Beat the game by collecting all cats in the Almanc in a single run!</h3>
                     <h2 id="cats-found-display">Perk Points: {props.state.perkPoints}</h2>
                 </div>
 

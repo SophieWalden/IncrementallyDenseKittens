@@ -1,10 +1,60 @@
 
+#cat-content-left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainSorting{
+    background: rgb(90, 174, 90) !important;
+}
+
+.nonSorting{
+    background: #883b2d!important;
+}
+
+.cat-sorting-button{
+    width: 5vw;
+    height: 2vh;
+    background: rgb(143, 73, 30);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid black 1px;
+    border-radius: 5px;
+
+}
+
+#cat-inventory-sorter{
+    display: flex;
+    width: 65vw;
+    height: 3vh;
+    background: #997e5a;
+
+    border: solid 2px black;
+    border-radius: 5px;
+    position: relative;
+    bottom: 1vh;
+
+    justify-content: left;
+    align-items: center;
+}
+
+#cat-inventory-sorter h3{
+    font-size: 0.75vw;
+    margin: 0;
+    margin-left: 2vw;
+    margin-top: 0.25vh;
+    padding: 0;
+}
 
 #cat-inventory{
 
     width: 65vw;
     background: #997e5a;
-    height: 82vh;
+    height: 78vh;
 
     border-radius: 15px;
     border: solid black 2px;
@@ -30,7 +80,7 @@
 
     width: 25vw;
     background: rgb(126, 102, 72);
-    height: 82vh;
+    height: 82.5vh;
 
     border-radius: 15px;
     border: solid black 2px;

@@ -36,6 +36,10 @@
     display: none;
 }
 
+#almanac-top-bar h3{
+    font-size: 1vw;
+}
+
 #almanac-hide-button{
     position: relative;
     left: 53vw;

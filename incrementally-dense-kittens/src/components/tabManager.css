@@ -3,6 +3,59 @@
     display: none !important;
 }
 
+#end-game-display{
+    position: absolute;
+    width: 70vw;
+    height: 90vh;
+    background: rgb(128, 61, 61);
+    border: solid 5px black;
+    border-radius: 25px;
+    left: 15vw;
+    top: 5vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#cats img{
+    width: 8vw;
+    height: 8vw;
+}
+
+#cats{
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+#end-game-display h1{
+    font-size: 2vw;
+}
+
+#end-game-display h3{
+    font-size: 1.25vw;
+}
+
+#end-game-display h5{
+    font-size: 0.75vw;
+}
+
+
+#continue-button-end-game{
+    font-size: 1.5vw;
+    background: rgb(194, 132, 132);
+    width: 30vw;
+    height: 15vh;
+    border-radius: 5px;
+    border: solid black 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .tab-selector-buttons:hover{
     background: #702f24;
 }

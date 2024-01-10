@@ -8,6 +8,11 @@
     flex-direction: column;
 }
 
+#autobuyer-display h3{
+    padding: 0;
+    margin: 0;
+}
+
 .notFound{
     filter: brightness(0%);
 }
