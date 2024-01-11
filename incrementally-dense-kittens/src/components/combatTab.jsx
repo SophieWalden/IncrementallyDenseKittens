@@ -300,7 +300,6 @@ function CombatTab(props){
       }
 
       function findCat(id){
-        console.log(props.state.equippedCats)
         for (let i = 0; i < props.state.cats.length; i++){
             if (props.state.cats[i].id == id) return props.state.cats[i];
         }

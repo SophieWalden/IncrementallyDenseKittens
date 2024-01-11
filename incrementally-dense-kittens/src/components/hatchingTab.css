@@ -155,6 +155,10 @@
     font-size: 1.25vw;
 }
 
+.egg-container h2:hover{
+    background: rgb(65, 148, 65) !important;
+}
+
 #egg-container-display-image{
     width: 10vw !important;
     height: 10vw !important;

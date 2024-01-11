@@ -44,6 +44,8 @@ function CatsTab(props){
   }
   
   function equipCat(cat){
+    if (!Object.keys(cat).includes("name")) return; // Invalid Cat
+
     if (props.state.equippedCats.length < props.state.maxEquippedCats){
       if (!props.state.equippedCats.includes(cat.id)){
         props.setState(oldState => ({...oldState, "equippedCats": [...oldState.equippedCats, cat.id]}))
