@@ -1,10 +1,16 @@
 import "./catsTab.css"
 import {useState} from "react";
-import {formatValues, getCat} from "./globalFunctions";
+import {formatValues} from "./globalFunctions";
 import Decimal from "break_infinity.js";
 
 function CatsTab(props){
-
+  
+  const getCat = (cats, id) => {
+    for (let i = 0; i < cats.length; i++){
+      if (cats[i].id == id) return cats[i];
+    }
+    return null;
+  }
   const startingInventorySize = 70;
   const [sortingMode, setSortingMode] = useState("density");
 

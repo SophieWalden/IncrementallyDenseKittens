@@ -76,10 +76,15 @@ function TabManager(){
     });
 
 
-
+    const getCat = (cats, id) => {
+        for (let i = 0; i < cats.length; i++){
+            if (cats[i].id == id) return cats[i];
+        }
+        return null;
+        }
 
     function check_for_end_of_game(){
-        if (state.catsSeen.length == 26 && !state.gameBeaten){
+        if (state.catsSeen.length == 29 && !state.gameBeaten){
             setState((oldState) => ({...oldState, "gameBeaten": true, "endScreenShown": true}))
         }
     }

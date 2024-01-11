@@ -78,6 +78,9 @@ const catIcons = {
     "Nunchuck Cat": "https://i.imgur.com/EFs3Tvy.png",
     "Sword Cat": "https://i.imgur.com/uagQHeD.png",
     "Gun Cat": "https://i.imgur.com/29GscWz.png",
+    "John Lennon": "https://i.imgur.com/8RhoEIG.png",
+    "Lev": "https://i.imgur.com/0dHFThi.png",
+    "Table": "https://i.imgur.com/ODuVz0k.png",
 }
 
 const cats = {
@@ -107,6 +110,9 @@ const cats = {
     "Nunchuck Cat": {"image": catIcons["Nunchuck Cat"], "base_density": 95},
     "Sword Cat": {"image": catIcons["Sword Cat"], "base_density": 130},
     "Gun Cat": {"image": catIcons["Gun Cat"], "base_density": 200},
+    "John Lennon": {"image": catIcons["John Lennon"], "base_density": 175},
+    "Lev": {"image": catIcons["Lev"], "base_density": 300},
+    "Table": {"image": catIcons["Table"], "base_density": 250},
 }
 
 const catLikes = [
@@ -277,6 +283,7 @@ function HatchingTab(props){
         {"name": "Super Egg", "Cost": new Decimal(1000), "currency": "Coins", "outcomes": [[60, "Cute Cat"], [35, "Superhero Cat"], [4, "Lawyer Cat"], [1, "Jim"]], "image": "https://art.pixilart.com/sr21be6cd207faws3.png"},
         {"name": "Not A Cat Egg", "Cost": new Decimal(3000), "currency": "Coins", "outcomes": [[60, "Dog"], [30, "Turtle"], [8, "Fox"], [2, "Three Cats One Trenchcoat"]], "image": "https://art.pixilart.com/sr2a383aaad61aws3.png"},
         {"name": "Weapon Cats", "Cost": new Decimal(10000), "currency": "Coins", "outcomes": [[60, "Sycthe Cat"], [31, "Nunchuck Cat"], [8, "Sword Cat"], [1, "Gun Cat"]], "image": "https://art.pixilart.com/sr25a569fd5e9aws3.png"},
+        {"name": "Soapie's Favorites", "Cost": new Decimal(30000), "currency": "Coins", "outcomes": [[90, "Fox"], [9, "John Lennon"], [0.7, "Table"], [0.3, "Lev"]], "image": "https://art.pixilart.com/sr2947035cdbeaws3.png"},
     ]
 
 

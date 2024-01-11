@@ -23,11 +23,3 @@ export const formatValues = (value, decimalMode) =>{
   }
 
 
-
-export const getCat = (cats, id) => {
-  for (let i = 0; i < cats.length; i++){
-    if (cats[i].id == id) return cats[i];
-  }
-  return null;
-}
-

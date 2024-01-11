@@ -2,6 +2,7 @@ import "./pressureTab.css"
 import {useState, useEffect} from "react";
 import {formatValues} from "./globalFunctions";
 
+
 const catIcons = {
     "Knitting Cat": "https://i.imgur.com/w0krgMm.png",
     "Cat Toy Cat": "https://i.imgur.com/dg5jmS7.png",
@@ -29,7 +30,12 @@ const catIcons = {
     "Nunchuck Cat": "https://i.imgur.com/EFs3Tvy.png",
     "Sword Cat": "https://i.imgur.com/uagQHeD.png",
     "Gun Cat": "https://i.imgur.com/29GscWz.png",
+    "John Lennon": "https://i.imgur.com/8RhoEIG.png",
+    "Lev": "https://i.imgur.com/0dHFThi.png",
+    "Table": "https://i.imgur.com/ODuVz0k.png",
 }
+
+
 
 
 const catPoints = {
@@ -59,6 +65,9 @@ const catPoints = {
     "Nunchuck Cat": 20,
     "Sword Cat": 40,
     "Gun Cat": 50,
+    "John Lennon": 40,
+    "Lev": 100,
+    "Table": 75,
 }
 
 

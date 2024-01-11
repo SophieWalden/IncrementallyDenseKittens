@@ -84,6 +84,8 @@ function PressTab(props){
                 "killsPerWorld": [0],
                 "enemyPowerLevel": 1,
                 "firstEnemy": true,
+                "unlockedEggs": 1,
+                "eggHatchingIndex": 0,
 
         }));
 

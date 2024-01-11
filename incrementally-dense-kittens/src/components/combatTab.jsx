@@ -5,9 +5,9 @@ import Decimal from "break_infinity.js";
 
 import {getCat} from "./globalFunctions.jsx"
 
-const enemyImages = {"dog": 'https://opengameart.org/sites/default/files/styles/thumbnail/public/howl.png',
-                    "raccoon": "https://opengameart.org/sites/default/files/styles/thumbnail/public/raccoon-run.gif",
-                    "fox": "https://opengameart.org/sites/default/files/styles/thumbnail/public/tom-400.jpg",
+const enemyImages = {"dog": 'https://i.imgur.com/TcfI2hJ.png',
+                    "raccoon": "https://i.imgur.com/452I1jm.png",
+                    "fox": "https://i.imgur.com/wkv51yk.png",
                     "goblin": "https://opengameart.org/sites/default/files/styles/thumbnail/public/lpc_goblin_preview.png",
                     "wiggly mage": "https://opengameart.org/sites/default/files/styles/thumbnail/public/threeformsPrev.png",
                     "powerful wiggly mage": "https://opengameart.org/sites/default/files/styles/thumbnail/public/archon.gif",
