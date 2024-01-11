@@ -37,7 +37,7 @@ function PressTab(props){
         let totalDensity = new Decimal(0);
         let highestDensity = new Decimal(0);
         let amountOfCats = props.state.cats.length;
-        let pressurizedCoinsGained = 0;
+        let pressurizedCoinsGained = new Decimal(0);
 
         if (amountOfCats < 5) return;
 
@@ -48,7 +48,7 @@ function PressTab(props){
                 highestDensity = props.state.cats[i].density
             }
 
-            pressurizedCoinsGained += catPoints[props.state.cats[i].type]
+            pressurizedCoinsGained = pressurizedCoinsGained.plus(catPoints[props.state.cats[i].type])
         }
 
         let averageDensity = totalDensity.dividedBy(amountOfCats);
@@ -76,7 +76,7 @@ function PressTab(props){
         props.setState((oldState) => ({...oldState, 
                 "cats": [...newCats, newCat],
                 "equippedCats": [],
-                "pressurizedCoins": oldState.pressurizedCoins.plus(new Decimal(pressurizedCoinsGained)),
+                "pressurizedCoins": oldState.pressurizedCoins.plus(pressurizedCoinsGained),
                 "catsSeen": [],
                 "coins": new Decimal(10),
                 "currentWorld": 0,
@@ -93,10 +93,10 @@ function PressTab(props){
     }
 
     function possibleGainsPressurizedCoins(){
-        let pressurizedCoinsGained = 0;
+        let pressurizedCoinsGained = new Decimal(0);
 
         for (let i = 0; i < props.state.cats.length; i++){
-            pressurizedCoinsGained += catPoints[props.state.cats[i].type]
+            pressurizedCoinsGained = pressurizedCoinsGained.plus(new Decimal(catPoints[props.state.cats[i].type]))
         }
 
         return pressurizedCoinsGained;
@@ -135,7 +135,7 @@ function PressTab(props){
         
                 <button id="hydraulicPressButton" onClick={condenseCats}>Hydraulic Press</button>
                 
-                <h3>You will Gain {possibleGainsPressurizedCoins()} Pressurized Coins</h3>
+                <h3>You will Gain {formatValues(possibleGainsPressurizedCoins())} Pressurized Coins</h3>
                 <h3>You will also compress yours cats into a cat of power level {formatValues(possiblePowerLevel()[0])} - {formatValues(possiblePowerLevel()[1])}</h3>
 
         </div>
