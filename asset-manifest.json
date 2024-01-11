@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/IncrementallyDenseKittens/static/css/main.f7d7fe36.css",
-    "main.js": "/IncrementallyDenseKittens/static/js/main.ea31a63f.js",
+    "main.css": "/IncrementallyDenseKittens/static/css/main.83385eae.css",
+    "main.js": "/IncrementallyDenseKittens/static/js/main.247d80fc.js",
     "static/js/787.75b73eba.chunk.js": "/IncrementallyDenseKittens/static/js/787.75b73eba.chunk.js",
     "static/media/logo.svg": "/IncrementallyDenseKittens/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/IncrementallyDenseKittens/index.html",
-    "main.f7d7fe36.css.map": "/IncrementallyDenseKittens/static/css/main.f7d7fe36.css.map",
-    "main.ea31a63f.js.map": "/IncrementallyDenseKittens/static/js/main.ea31a63f.js.map",
+    "main.83385eae.css.map": "/IncrementallyDenseKittens/static/css/main.83385eae.css.map",
+    "main.247d80fc.js.map": "/IncrementallyDenseKittens/static/js/main.247d80fc.js.map",
     "787.75b73eba.chunk.js.map": "/IncrementallyDenseKittens/static/js/787.75b73eba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f7d7fe36.css",
-    "static/js/main.ea31a63f.js"
+    "static/css/main.83385eae.css",
+    "static/js/main.247d80fc.js"
   ]
 }
