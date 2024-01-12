@@ -6,6 +6,18 @@
     justify-content: space-between;
 }
 
+#sorter-left{
+    display: flex;
+}
+
+#equipHighestDensityCats{
+    background: rgb(110, 110, 193);
+    border: solid 2px rgb(29, 29, 40);
+    border-radius: 5px;
+    width: 15vw;
+    margin-right: 2vw !important;
+}
+
 .mainSorting{
     background: rgb(90, 174, 90) !important;
 }
@@ -38,7 +50,7 @@
     position: relative;
     bottom: 1vh;
 
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
 }
 

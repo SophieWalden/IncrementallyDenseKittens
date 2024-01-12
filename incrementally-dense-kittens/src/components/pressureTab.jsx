@@ -4,15 +4,17 @@ import {formatValues} from "./globalFunctions";
 
 
 const catIcons = {
+    // Mom Submitted Cats:
     "Knitting Cat": "https://i.imgur.com/w0krgMm.png",
     "Cat Toy Cat": "https://i.imgur.com/dg5jmS7.png",
     "Squirrel Cat": "https://i.imgur.com/757oJ80.png",
     "Void Cat": "https://i.imgur.com/E92OkRe.png",
     "Princess Cat": "https://i.imgur.com/N69iDEF.png",
     "Classy Cat": "https://i.imgur.com/xgjQb3H.png",
-    "Hefty Cat": "https://i.imgur.com/1u0lr1c.png",
+
+    // Me Drawn Cats (God cant draw that many)
     "Chonky Cat": "https://i.imgur.com/6RMwBrT.png",
-     "Megachonker": "https://i.imgur.com/S9K37e3.png",
+    "Megachonker": "https://i.imgur.com/S9K37e3.png",
     "Garf Cat": "https://i.imgur.com/T796CTa.png",
     "Superhero Cat": "https://i.imgur.com/qEbVKHV.png",
     "Lawyer Cat": "https://i.imgur.com/Pb6INth.png",
@@ -33,6 +35,28 @@ const catIcons = {
     "John Lennon": "https://i.imgur.com/8RhoEIG.png",
     "Lev": "https://i.imgur.com/0dHFThi.png",
     "Table": "https://i.imgur.com/ODuVz0k.png",
+
+    // Emerson Submitted Cats (Love you bestie <3)
+    "Zombie Cat": "https://i.imgur.com/ytSveGn.png",
+    "Alien Cat": "https://i.imgur.com/KQ3DgYF.png",
+    "Box Cat": "https://i.imgur.com/gg8D77q.png",
+    "Catgirl Lennon": "https://i.imgur.com/ckfkgTN.png",
+    "Bottled Cat": "https://i.imgur.com/tJGCqmH.png",
+    "Fancy Cat": "https://i.imgur.com/ow1PgjX.png",
+    "Ghost Cat": "https://i.imgur.com/61pgQj8.png",
+    "Squire Cat": "https://i.imgur.com/TKGjxUV.png",
+    "King Cat": "https://i.imgur.com/PlfZfQH.png",
+    "One Line Cat": "https://i.imgur.com/p4fuQhG.png",
+    "Octocat": "https://i.imgur.com/KAIwtrW.png",
+    "Office Cat": "https://i.imgur.com/pdDRYXX.png",
+    "Queen Cat": "https://i.imgur.com/BjknyAE.png",
+    "Rabbit": "https://i.imgur.com/e8qC50x.png",
+    "Simon": "https://i.imgur.com/GH96SfM.png",
+    "Small Cat": "https://i.imgur.com/KKfYfiK.png",
+    "Vampire Cat": "https://i.imgur.com/gHGUmpt.png",
+    "Wiggly Cat": "https://i.imgur.com/JWgrtZP.png",
+    "Wizard Cat": "https://i.imgur.com/dnlrQ2A.png",
+    "Hefty Cat": "https://i.imgur.com/oCrNwxT.png",
 }
 
 
@@ -68,8 +92,26 @@ const catPoints = {
     "John Lennon": 40,
     "Lev": 100,
     "Table": 75,
+    "Vampire Cat": 30,
+    "Alien Cat": 40,
+    "Ghost Cat": 45,
+    "Zombie Cat": 125,
+    "Box Cat": 100,
+    "Bottled Cat": 125,
+    "Catgirl Lennon": 300,
+    "Octocat": 30,
+    "Office Cat": 50,
+    "Rabbit": 65,
+    "Simon": 80,
+    "One Line Cat": 65,
+    "Small Cat": 80,
+    "Wiggly Cat": 100,
+    "Wizard Cat": 150,
+    "Fancy Cat": 100,
+    "Squire Cat": 150,
+    "King Cat": 200,
+    "Queen Cat": 250
 }
-
 
 
 function PressureTab(props){
@@ -79,13 +121,23 @@ function PressureTab(props){
     function logCat(){
         for (let i = 0; i < props.state.cats.length; i++){
             let currentCat = props.state.cats[i].type;
+            let catsSeen = props.state.catsSeen
+            let perkPointsGained = 0;
+            let lifetimeCatsSeen = props.state.lifetimeCatsSeen;
 
-            if (!props.state.catsSeen.includes(currentCat)){
-                props.state.catsSeen.push(currentCat);
 
+            if (!catsSeen.includes(currentCat)){
                 
-                props.setState((oldState) => ({...oldState, "perkPoints": oldState.perkPoints + catPoints[currentCat]}))
+                
+                catsSeen.push(currentCat);
+                perkPointsGained += catPoints[currentCat];
             }
+
+            if (!lifetimeCatsSeen.includes(currentCat)){
+                lifetimeCatsSeen.push(currentCat)
+            }
+
+            props.setState((oldState) => ({...oldState, "perkPoints": oldState.perkPoints + perkPointsGained, "catsSeen": catsSeen, "lifetimeCatsSeen": lifetimeCatsSeen}))
         }
     }
 
@@ -129,7 +181,7 @@ function PressureTab(props){
 
                 <div id="almanac-top-bar">
                     <h2 id="pressure-tab-almanac" onClick={() => showAlmanac(true)}>Almanac</h2>
-                    <h3>Beat the game by collecting all cats in the Almanc in a single run!</h3>
+                    <h3>Beat the game by collecting all cats in the Almanac across all of your resets</h3>
                     <h2 id="cats-found-display">Perk Points: {props.state.perkPoints}</h2>
                 </div>
 
@@ -140,9 +192,12 @@ function PressureTab(props){
 
                 <div className={almanac ? "" : "hideTab"}>
                     <div id="almanac-container">
-                        <div id="almanac-hide-button" onClick={() => showAlmanac(false)}>X</div>
+                        <div id="almanac-container-top-bar">
+                            <h4>(Legend) Grey: Not Found; Half Brightness: Found in a previous reset; Bright: Found this reset</h4>
+                            <div id="almanac-hide-button" onClick={() => showAlmanac(false)}>X</div>
+                        </div>
                         {Object.keys(catIcons).map((cat, index) => (
-                            <img className={`almanac-cat ${props.state.catsSeen.includes(cat) ? '' : 'not-found-cat'}`} src={catIcons[cat]} key={index}></img>  
+                            <img className={`almanac-cat ${props.state.catsSeen.includes(cat) ? '' : props.state.lifetimeCatsSeen.includes(cat)  ? "lifetime-found-cat" : 'not-found-cat'}`} src={catIcons[cat]} key={index}></img>  
                         ))}
                     </div>
                 </div>

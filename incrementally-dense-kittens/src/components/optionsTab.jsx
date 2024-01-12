@@ -105,6 +105,7 @@ function OptionsTab(props){
             "firstEnemy": true,
     
             // Pressure Tab
+            "lifetimeCatsSeen": [],
             "catsSeen": [],
             "perkPoints": 0,
             "upgrades": {1: {"name": "Cat Legion Unleashed", "description": "[Rebuyable] Equip More Cats!", "unlocked": 0, "cost": 3, id:1},
@@ -121,7 +122,9 @@ function OptionsTab(props){
             // Options Tab
             "loaded": false,
             "gameBeaten": false,
-            "endScreenShown": false}
+            "endScreenShown": false,
+            
+        }
 
         for (const entry in newState){
             if (!Object.keys(save).includes(entry)){

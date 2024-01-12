@@ -30,7 +30,30 @@ const catPoints = {
     "Nunchuck Cat": 20,
     "Sword Cat": 40,
     "Gun Cat": 50,
+    "John Lennon": 40,
+    "Lev": 100,
+    "Table": 75,
+    "Vampire Cat": 30,
+    "Alien Cat": 40,
+    "Ghost Cat": 45,
+    "Zombie Cat": 125,
+    "Box Cat": 100,
+    "Bottled Cat": 125,
+    "Catgirl Lennon": 300,
+    "Octocat": 30,
+    "Office Cat": 50,
+    "Rabbit": 65,
+    "Simon": 80,
+    "One Line Cat": 65,
+    "Small Cat": 80,
+    "Wiggly Cat": 100,
+    "Wizard Cat": 150,
+    "Fancy Cat": 100,
+    "Squire Cat": 150,
+    "King Cat": 200,
+    "Queen Cat": 250
 }
+
 function PressTab(props){
 
     function condenseCats(){
@@ -41,14 +64,26 @@ function PressTab(props){
 
         if (amountOfCats < 5) return;
 
+        let newCats = [];
+        // Upgrade 6: Keep 3 highest density cats when using hydraulic press
+        if (props.state.upgrades[6].unlocked == 1){
+            let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
+
+            newCats.push(cats[0]);
+            newCats.push(cats[1]);
+            newCats.push(cats[2]);
+        }
+
         for (let i = 0; i < amountOfCats; i++){
 
-            totalDensity = totalDensity.plus(props.state.cats[i].density);
-            if (props.state.cats[i].density.greaterThan(highestDensity)){
-                highestDensity = props.state.cats[i].density
-            }
+            if (!newCats.includes(props.state.cats[i])){
+                totalDensity = totalDensity.plus(props.state.cats[i].density);
+                if (props.state.cats[i].density.greaterThan(highestDensity)){
+                    highestDensity = props.state.cats[i].density
+                }
 
-            pressurizedCoinsGained = pressurizedCoinsGained.plus(catPoints[props.state.cats[i].type])
+                pressurizedCoinsGained = pressurizedCoinsGained.plus(catPoints[props.state.cats[i].type])
+            }
         }
 
         let averageDensity = totalDensity.dividedBy(amountOfCats);
@@ -63,15 +98,6 @@ function PressTab(props){
 
 
     
-        let newCats = [];
-        // Upgrade 6: Keep 3 highest density cats when using hydraulic press
-        if (props.state.upgrades[6].unlocked == 1){
-            let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
-
-            newCats.push(cats[0]);
-            newCats.push(cats[1]);
-            newCats.push(cats[2]);
-        }
 
         props.setState((oldState) => ({...oldState, 
                 "cats": [...newCats, newCat],
@@ -95,8 +121,20 @@ function PressTab(props){
     function possibleGainsPressurizedCoins(){
         let pressurizedCoinsGained = new Decimal(0);
 
+        let newCats = [];
+
+        if (props.state.upgrades[6].unlocked == 1){
+            let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
+
+            newCats.push(cats[0]);
+            newCats.push(cats[1]);
+            newCats.push(cats[2]);
+        }
+
         for (let i = 0; i < props.state.cats.length; i++){
-            pressurizedCoinsGained = pressurizedCoinsGained.plus(new Decimal(catPoints[props.state.cats[i].type]))
+            if (!newCats.includes(props.state.cats[i])){
+             pressurizedCoinsGained = pressurizedCoinsGained.plus(new Decimal(catPoints[props.state.cats[i].type]))
+            }
         }
 
         return pressurizedCoinsGained;
@@ -107,11 +145,23 @@ function PressTab(props){
         let highestDensity = new Decimal(0);
         let amountOfCats = props.state.cats.length;
 
+        let newCats = [];
+        // Upgrade 6: Keep 3 highest density cats when using hydraulic press
+        if (props.state.upgrades[6].unlocked == 1){
+            let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
+
+            newCats.push(cats[0]);
+            newCats.push(cats[1]);
+            newCats.push(cats[2]);
+        }
+
         for (let i = 0; i < amountOfCats; i++){
 
-            totalDensity = totalDensity.plus(props.state.cats[i].density);
-            if (props.state.cats[i].density.greaterThan(highestDensity)){
-                highestDensity = props.state.cats[i].density
+            if (!newCats.includes(props.state.cats[i])){
+                totalDensity = totalDensity.plus(props.state.cats[i].density);
+                if (props.state.cats[i].density.greaterThan(highestDensity)){
+                    highestDensity = props.state.cats[i].density
+                }
             }
 
         }

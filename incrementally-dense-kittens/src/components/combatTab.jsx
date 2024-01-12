@@ -348,7 +348,7 @@ function CombatTab(props){
                     </div>
                     <div id="world-selector">
                         {[0, 1, 2, 3, 4].map((world_index) => {
-                            return <h5 className={`${(Math.floor(props.state.currentWorld / 5) + world_index) % 3 == 0 && (Math.floor(props.state.currentWorld / 5) + world_index) != 0 ? 'unlockedEggStage' : ''}`} key={world_index} onClick={() => rotateWorlds(-1 * ((props.state.currentWorld % 5) - world_index))}>
+                            return <h5 className={`${(Math.floor(props.state.currentWorld / 5) * 5 + world_index) % 3 == 0 && (Math.floor(props.state.currentWorld / 5) * 5 + world_index) != 0 ? 'unlockedEggStage' : ''}`} key={world_index} onClick={() => rotateWorlds(-1 * ((props.state.currentWorld % 5) - world_index))}>
                                 {props.state.worldsUnlocked.includes(world_index + Math.floor(props.state.currentWorld / 5) * 5) ? world_index + Math.floor(props.state.currentWorld / 5) * 5 : "?"}
                             </h5> 
                         })}

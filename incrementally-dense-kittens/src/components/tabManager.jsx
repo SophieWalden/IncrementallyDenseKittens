@@ -55,6 +55,7 @@ function TabManager(){
         "firstEnemy": true,
 
         // Pressure Tab
+        "lifetimeCatsSeen": [],
         "catsSeen": [],
         "perkPoints": 0,
         "upgrades": {1: {"name": "Cat Legion Unleashed", "description": "[Rebuyable] Equip More Cats!", "unlocked": 0, "cost": 3, id:1},
@@ -84,14 +85,12 @@ function TabManager(){
         }
 
     function check_for_end_of_game(){
-        if (state.catsSeen.length == 29 && !state.gameBeaten){
+        if (state.lifetimeCatsSeen.length == 48 && !state.gameBeaten){
             setState((oldState) => ({...oldState, "gameBeaten": true, "endScreenShown": true}))
         }
     }
 
     function calculateStats(){
-        check_for_end_of_game();
-
         // Calculate Combat Stats
         let totalDensity = new Decimal(0);
         for (let i = 0; i < state.equippedCats.length; i++){
@@ -118,7 +117,7 @@ function TabManager(){
                 }
 
                 if (getCat(state.cats, state.equippedCats[i]).density.greaterThanOrEqualTo(100)){
-                    totalHealth = totalHealth.times(20);
+                    totalHealth = totalHealth.times(1.20);
                 }
             }
         }
@@ -145,7 +144,11 @@ function TabManager(){
 
     useEffect(() => {
         calculateStats();
-      }, [state.equippedCats]);
+      }, [state.equippedCats, state.equippedCats.length]);
+
+    useEffect(() => {
+        check_for_end_of_game();
+    }, [state.Coins])
 
     return (
         <div>   

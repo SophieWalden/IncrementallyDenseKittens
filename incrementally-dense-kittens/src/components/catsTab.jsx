@@ -73,6 +73,22 @@ function CatsTab(props){
       
   }
 
+  function equipHighestDensityCats(){
+    let catsToFill = props.state.maxEquippedCats - props.state.equippedCats.length;
+    let cats = props.state.cats.sort((cat1, cat2) => cat2.density - cat1.density);
+    let equippedCats = props.state.equippedCats
+
+    for (let i = 0; i < cats.length; i++){
+      if (catsToFill > 0 && !equippedCats.includes(cats[i].id)){
+        equippedCats.push(cats[i].id);
+        catsToFill -= 1;
+      }
+    }
+
+    props.setState((oldState) => ({...oldState, "equippedCats": equippedCats}))
+
+  }
+
   function changeEquipmentStatus(cat){
     // If cat is equipped, then unequip and vice versa
 
@@ -97,9 +113,14 @@ function CatsTab(props){
 
         <div id="cat-content-left">
           <div id="cat-inventory-sorter">
-            <h3>Sort By: </h3>
-            <h3 className={`cat-sorting-button ${sortingMode == "density" ? "mainSorting": "nonSorting"}`} onClick={() => setSortingMode("density")}>Density</h3>
-            <h3 className={`cat-sorting-button ${sortingMode == "type" ? "mainSorting": "nonSorting"}`} onClick={() => setSortingMode("type")}>Type</h3>
+            <div id="sorter-left">
+              <h3>Sort By: </h3>
+              <h3 className={`cat-sorting-button ${sortingMode == "density" ? "mainSorting": "nonSorting"}`} onClick={() => setSortingMode("density")}>Density</h3>
+              <h3 className={`cat-sorting-button ${sortingMode == "type" ? "mainSorting": "nonSorting"}`} onClick={() => setSortingMode("type")}>Type</h3>
+            </div>
+            <div id="sorter-right">
+              <h3 id='equipHighestDensityCats' onClick={() => equipHighestDensityCats()}>Equip Highest Density Cats</h3>
+            </div>
           </div>
           <div id="cat-inventory">
             {generateRows().map((row, index) => (

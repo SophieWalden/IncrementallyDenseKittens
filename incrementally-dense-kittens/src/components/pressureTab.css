@@ -42,7 +42,7 @@
 
 #almanac-hide-button{
     position: relative;
-    left: 53vw;
+    left: 10vw;
     top: -1vh;
 
     width: 5vw;
@@ -80,6 +80,7 @@
     position: absolute;
     top: 20%;
     left: 20%;
+    overflow-y: scroll;
 }
 
 #pressure-tab-container{
@@ -101,6 +102,10 @@
     border: solid rgb(24, 23, 10) 2px;
 }
 
+.lifetime-found-cat{
+    filter: brightness(50%) !important;
+}
+
 .not-found-cat{
     filter: grayscale(1) brightness(20%);
 }
@@ -111,6 +116,16 @@
     justify-content: space-evenly;
     align-items: center;
     height: 10vh;
+}
+
+#almanac-container-top-bar{
+    display: flex;
+    justify-content: left;
+}
+
+#almanac-container-top-bar h4{
+    font-size: 0.65vw;
+    margin-left: 5vw;
 }
 
 .upgrade{
