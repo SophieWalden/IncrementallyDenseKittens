@@ -148,7 +148,7 @@ function TabManager(){
 
     useEffect(() => {
         check_for_end_of_game();
-    }, [state.Coins])
+    }, [state.coins])
 
     return (
         <div>   
