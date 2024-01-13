@@ -140,21 +140,21 @@ function CatsTab(props){
           </div>
         </div>
         <div>
-            {Object.values(props.state["cats"]).filter(cat => cat.id == props.state["selectedCat"]).length != 0 && 
-               <div id="cat-display">
-                  <h1>{selectedCat().name}</h1>
+            {
+               <div id="cat-display" className={`${selectedCat() != undefined ? '' : 'hideDisplay'}`}>
+                  <h1>{selectedCat() == undefined ? "" : selectedCat().name}</h1>
 
-                  <img src={selectedCat().image}></img>
+                  <img src={selectedCat() == undefined ? "" : selectedCat().image}></img>
 
                   <div id="cat-stats">
-                    <h2>Type: {selectedCat().type}</h2>
-                    <h2>Density: {formatValues(selectedCat().density)}</h2>
-                    <h2>Likes: {selectedCat().likes}</h2>
+                    <h2>Type: {selectedCat() == undefined ? "" : selectedCat().type}</h2>
+                    <h2>Density: {selectedCat() == undefined ? "" : formatValues(selectedCat().density)}</h2>
+                    <h2>Likes: {selectedCat() == undefined ? "" : selectedCat().likes}</h2>
                   </div>
 
                   <div id="cat-management-buttons">
 
-                    {!props.state.equippedCats.includes(selectedCat().id) ? 
+                    {!props.state.equippedCats.includes(selectedCat() == undefined ? -12839123 : selectedCat().id) ? 
                     <h3 onClick={() => equipCat(selectedCat())} id="equip-cat">Equip</h3> : 
                     <h3 onClick={() => props.setState((oldState) => ({
                       ...oldState, equippedCats:  oldState.equippedCats.filter((cat) => cat !== selectedCat().id),

@@ -26,6 +26,10 @@
     background: #883b2d!important;
 }
 
+.hideDisplay{
+    filter: opacity(0);
+}
+
 .cat-sorting-button{
     width: 5vw;
     height: 2vh;

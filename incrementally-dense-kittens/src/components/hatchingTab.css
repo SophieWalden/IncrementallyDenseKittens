@@ -8,9 +8,10 @@
     flex-direction: column;
 }
 
-#autobuyer-display h3{
+.autobuyer-display h3{
     padding: 0;
     margin: 0;
+    font-size: 1.25vw;
 }
 
 .cat-found{

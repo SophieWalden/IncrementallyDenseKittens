@@ -1,4 +1,49 @@
 
+.pressArm{
+    width: 50vw !important;
+    left: -40vw !important;
+}
+
+.press {
+    width: 10vw;
+    height: 40vh;
+    background-color: rgb(60, 68, 74);
+    animation: slide-right-press 0.5s ease-in-out;
+    opacity: 1; /* Initially hidden */
+    position: absolute;
+    top: 35vh;
+    overflow: hidden;
+  }
+
+  @keyframes slide-right-press {
+    from {
+        transform: translateX(0) scaleX(1) scaleY(1); /* Start from the current position (initially on the right) */
+      }
+      to {
+        transform: translateX(40vw) scaleY(0.8) scaleX(1.05); /* Move 30vw to the left */
+      }
+  }
+
+  .leftPress {
+    width: 10vw;
+    height: 40vh;
+    background-color: rgb(57, 65, 71);
+    animation: slide-left-press 0.5s ease-in-out;
+    opacity: 1; /* Initially hidden */
+    position: absolute;
+    top: 35vh;
+    left: 30vw;
+    overflow: hidden;
+  }
+
+  @keyframes slide-left-press {
+    from {
+        transform: translateX(80vw) scaleX(0.1) scaleY(1); /* Start from the current position (initially on the right) */
+      }
+      to {
+        transform: translateX(40vw) scaleY(0.8) scaleX(5.05); /* Move 30vw to the left */
+      }
+  }
 
 #hydraulicPressButton{
     width: 60vw;
@@ -12,4 +57,58 @@
 
 #hydraulicPressButton:hover{
     background: rgb(126, 81, 81);
+}
+
+#press-container{
+    overflow: hidden;
+    overflow-x: hidden !important;
+}
+
+@keyframes appear {
+    from {
+        transform: scaleX(0.8) scaleY(0.8); /* Start from the current position (initially on the right) */
+        opacity: 0.6;
+      }
+      to {
+        transform:  scaleY(1) scaleX(1); /* Move 30vw to the left */
+        opacity: 1;
+      }
+  }
+
+#display-cat{
+    position: absolute;
+    top: 45vh;
+    animation: appear 1.5s ease-in-out;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: scale(1);
+        opacity: 0.2;
+        }
+        50% {
+        transform:  scale(25);
+        opacity: 0.1;
+        background-color: orange; /* Change color as needed */
+        }
+        75% {
+        transform: scale(15);
+        opacity: 0.05;
+        background-color: red; /* Change color as needed */
+        }
+        100%{
+        transform: scale(10);
+        opacity: 0;
+        }
+    }
+    
+#sparkle{
+    position:absolute;
+    top: 50vh;
+    left: 50vw;
+    animation: sparkle 1.5s ease-in-out;
+
+    width: 3vw;
+    height: 3vh;
+    background-color: yellow;
 }

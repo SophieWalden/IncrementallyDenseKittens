@@ -475,8 +475,11 @@ function HatchingTab(props){
                 {props.state.eggHatchingIndex}
                 <h3 onClick={() => rotateEggs(1)}>→</h3>
             </div>
-            <div className={`${props.state.upgrades[7].unlocked == 0 ? 'hideTab' : ''}`} id="autobuyer-display">
+            <div className={`${props.state.upgrades[7].unlocked == 0 ? 'hideTab' : ''} autobuyer-display`}>
                 <h3>Autobuying {eggs.length> props.state.eggHatchingIndex ? eggs[props.state.eggHatchingIndex].name : "Nothing"} every {props.state.autoHatchingSpeeds[props.state.upgrades[7].unlocked]} seconds</h3>
+            </div>
+            <div className={`${props.state.upgrades[3].unlocked != 0 || props.state.upgrades[1].unlocked != 0 ? 'hideTab' : ''} autobuyer-display`}>
+                <h3>Acquire four unique cats to unlock pressure perks!</h3>
             </div>
              
         </div>

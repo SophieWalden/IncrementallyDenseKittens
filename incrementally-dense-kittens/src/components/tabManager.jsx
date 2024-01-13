@@ -158,7 +158,7 @@ function TabManager(){
                         <div className="tab-selector-buttons" onClick={() => setTab("cats")}>Cats</div>
                         <div className="tab-selector-buttons" onClick={() => setTab("eggs")}>Eggs</div>
                         <div className={`tab-selector-buttons ${state.equippedCats.length == 0 && state.catsSeen.length < 3 ? 'hiddenTab' : ''}`} onClick={() => setTab("combat")}>Combat</div>
-                        <div className={`tab-selector-buttons ${state.catsSeen.length < 5 ? 'hiddenTab' : ''}`} onClick={() => setTab("pressure")}>Pressure Perks</div>
+                        <div className={`tab-selector-buttons ${state.catsSeen.length < 4 && state.upgrades[1].unlocked == 0 ? 'hiddenTab' : ''}`} onClick={() => setTab("pressure")}>Pressure Perks</div>
                         <div className={`tab-selector-buttons ${state.upgrades[3].unlocked == 0 ? 'hiddenTab' : ''}`} onClick={() => setTab("press")}>Hydraulic Press</div>
                         <div className="tab-selector-buttons" onClick={() => setTab("options")}>Options</div>
 
