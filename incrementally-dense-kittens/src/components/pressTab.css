@@ -79,6 +79,8 @@
     position: absolute;
     top: 45vh;
     animation: appear 1.5s ease-in-out;
+    width: 5vw;
+    height: 5vw;
 }
 
 @keyframes sparkle {
